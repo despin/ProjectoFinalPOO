@@ -1,0 +1,35 @@
+Cajero
+- ID
+- Nombre
+- Apellido
+- DNI
+- Numero de empleado
+- Fecha de ingreso a la empresa
+
+Producto
+- ID
+- Nombre
+- Codigo unico de identificacion
+- Familia de productos
+
+Familia de productos
+- ID
+- Nombre
+- Descuento
+
+Descuento
+- ID 
+- Palabras claves
+- Porcentaje_descuento
+
+Venta
+- ID
+- Cajero responsable
+- Fecha cierre de transaccion
+
+Producto_Venta
+- ID
+- Producto
+- Venta
+- Precio
+- Cantidad
