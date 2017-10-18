@@ -1,0 +1,3 @@
+Normalizar las tablas
+Hacer el script para crear las tablas
+Añadir el conversor Query -> Objeto
