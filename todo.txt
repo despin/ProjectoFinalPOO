@@ -1,7 +1,6 @@
-Normalizar las tablas
 Hacer el script para crear las tablas
 Añadir el conversor Query -> Objeto
-
+Pasar der a PNG
 
 
 Entrega el 10/11 (Viernes) 1era Parte
