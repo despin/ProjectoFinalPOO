@@ -16,6 +16,11 @@ import java.awt.event.ActionEvent;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import javax.swing.JTable;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class VentaNueva extends JPanel {
 	private JTable table;
@@ -27,20 +32,27 @@ public class VentaNueva extends JPanel {
 		
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.NORTH);
-		panel.setLayout(new GridLayout(1, 0, 0, 0));
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblEmpleado = new JLabel("Empleado \""+codigoDeEmpleado+"\"");
+		lblEmpleado.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(lblEmpleado);
 		
 		JButton btnAnadir = new JButton("Añadir ");
 		btnAnadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		panel.add(btnAnadir);
+		panel.add(btnAnadir, BorderLayout.WEST);
 		
 		JButton btnQuitar = new JButton("Quitar");
-		panel.add(btnQuitar);
+		panel.add(btnQuitar, BorderLayout.EAST);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		add(scrollPane, BorderLayout.CENTER);
+		add(scrollPane, BorderLayout.CENTER);	
+		
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{panel, btnAnadir, btnQuitar, scrollPane, btnAceptar}));
+		
 		
 		JPanel panelScroll = new JPanel();
 		scrollPane.setViewportView(panelScroll);
@@ -48,7 +60,6 @@ public class VentaNueva extends JPanel {
 		
 		table = new JTable();
 		panelScroll.add(table, BorderLayout.CENTER);
-		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{panel, btnAnadir, btnQuitar, scrollPane, btnAceptar}));
 		
 	}
 }
