@@ -15,14 +15,14 @@ public class Main {
 		marco.validate();
 		
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(1500);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		marco.setContentPane();
-
+		marco.setContentPane(new Inicio(marco));
+		marco.validate();
 		
 	}
 
