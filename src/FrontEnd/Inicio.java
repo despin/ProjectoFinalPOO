@@ -47,4 +47,6 @@ public class Inicio extends JPanel{
 		codEmpleado.setColumns(6);
 		
 	}
+	
+	public 
 }
