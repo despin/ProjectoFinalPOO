@@ -29,7 +29,8 @@ public class Inicio extends JPanel{
 		btnPanelControl.setToolTipText("Administra y monitoriza las transacciones del sistema");
 		btnPanelControl.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Control!");	
+				marco.setContentPane(new PanelControl(), codEmpleado.getText());
+                                marco.validate();	
 			}
 		});
 		btnPanelControl.setMnemonic('c');
