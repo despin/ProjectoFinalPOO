@@ -9,7 +9,7 @@ public class ProductoDAO {
 
 	public Producto obtenerProductoDesdeCodigo(String codigo) {
 		//obtener datos desde un query
-		return new Producto(codigo, "", 0);
+		return new Producto(codigo, "", 2);
 	}
 	
 }
