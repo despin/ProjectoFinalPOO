@@ -2,6 +2,7 @@ Hacer el script para crear las tablas
 Añadir el conversor Query -> Objeto
 Pasar DER a PNG
 
+Procedimiento Almacenado que devuelve un empleado a partir de su codigo, sino devuelve el error en el codigo de empleado
 
 Entrega el 10/11 (Viernes) 1era Parte
 
