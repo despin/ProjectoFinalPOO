@@ -17,10 +17,13 @@ public class Producto {
 		this.precio = precio;
 	}
 	
-	public Producto Producto (String codigoBarras){
+	public Producto (String codigoBarras){
 		//Query para obtener el producto mediante un procedimiento almacenado
 		ProductoDAO dao = new ProductoDAO();
-		return dao.obtenerProductoDesdeCodigo(codigoBarras);
+		Producto nuevo = dao.obtenerProductoDesdeCodigo(codigoBarras);
+		this.codigoBarras = nuevo.getCodProducto();
+		this.nombre = nuevo.getNombre();
+		this.precio = nuevo.getPrecio();
 	}
 	
 	public String getCodProducto() {
