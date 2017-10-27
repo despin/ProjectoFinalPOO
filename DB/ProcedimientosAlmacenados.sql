@@ -19,7 +19,7 @@ SELECT * FROM  Venta
 WHERE id_venta = id_venta;
 END $$
 DELIMITER ;
-
+USE SuperMercado;
 /** DESCUENTO **/
 
 DROP PROCEDURE IF EXISTS pa_descuento;
@@ -38,6 +38,9 @@ DELIMITER $$
 CREATE PROCEDURE pa_empleado (IN _codEmpleado varchar(6))
 BEGIN
 SELECT * FROM  Empleado
-WHERE codEmpleado = codEmpleado;
+WHERE _codEmpleado = ID_Empleado;
 END $$
 DELIMITER ;
+
+CALL pa_empleado("000012");
+# devuelve un registro
