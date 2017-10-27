@@ -56,7 +56,7 @@ public class VentaNueva extends JPanel {
 				"Codigo", "Nombre", "Precio p/u", "Unidades", "PrecioTotal"
 			};
 			
-		Object[][] registros = { null, null, null, null, null};
+		Object[][] registros = { };
 		
 		DefaultTableModel modelo = new DefaultTableModel(
 				registros,
