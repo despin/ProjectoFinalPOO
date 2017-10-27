@@ -56,24 +56,12 @@ public class VentaNueva extends JPanel {
 				"Codigo", "Nombre", "Precio p/u", "Unidades", "PrecioTotal"
 			};
 			
-		Object[][] registros = { null,null,null,null,null};
+		Object[][] registros = { null, null, null, null, null};
 		
 		DefaultTableModel modelo = new DefaultTableModel(
 				registros,
 				headerTable
-			) {
-				/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
-				@SuppressWarnings("rawtypes")
-				Class[] columnTypes = new Class[] {
-					String.class, String.class, Double.class, Double.class, Double.class
-				};
-				public Class getColumnClass(int columnIndex) {
-					return columnTypes[columnIndex];
-				}
-			};
+			);
 		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
@@ -92,6 +80,11 @@ public class VentaNueva extends JPanel {
 		textFieldCodProducto.setColumns(6);
 		
 		JButton btnQuitar = new JButton("Quitar");
+		btnQuitar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//quitar fila con removeRow
+			}
+		});
 		btnQuitar.setBounds(401, 25, 72, 25);
 		add(btnQuitar);
 		
@@ -107,16 +100,13 @@ public class VentaNueva extends JPanel {
 		table = new JTable();
 		table.setFillsViewportHeight(true);
 		table.setSurrendersFocusOnKeystroke(true);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Codigo", "Nombre", "Precio p/u", "Unidades", "PrecioTotal"
-			}
-		));
+		table.setModel(modelo);
 		table.getColumnModel().getColumn(1).setPreferredWidth(203);
-		panelTable.add(table, BorderLayout.CENTER);
 		panelTable.add(table.getTableHeader(), BorderLayout.NORTH);
+		panelTable.add(table, BorderLayout.CENTER);
+
+		
+		
 		
 		spinner = new JSpinner();
 		spinner.setModel(new SpinnerNumberModel(1, 1, 15, 1));
@@ -129,7 +119,6 @@ public class VentaNueva extends JPanel {
 				Producto productoNuevo = new Producto(textFieldCodProducto.getText());
 				int precioTotal = productoNuevo.getPrecio() * (int) spinner.getValue();
 				modelo.addRow(new Object[]{productoNuevo.getCodProducto(), productoNuevo.getNombre(), productoNuevo.getPrecio(), spinner.getValue(), precioTotal});
-				
 			}
 		});
 		btnAgregar.setBounds(22, 25, 81, 25);
