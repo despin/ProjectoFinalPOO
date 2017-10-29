@@ -135,6 +135,7 @@ public class VentaNueva extends JPanel {
 				}
 				int precioTotal = productoNuevo.getPrecio() * (int) spinner.getValue();
 				modelo.addRow(new Object[]{productoNuevo.getCodProducto(), productoNuevo.getNombre(), productoNuevo.getPrecio(), spinner.getValue(), precioTotal});
+				textFieldCodProducto.setText("");
 			}
 		});
 	}
