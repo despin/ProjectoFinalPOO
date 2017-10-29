@@ -66,7 +66,15 @@ public class VentaNueva extends JPanel {
 		JButton buttonAceptar = new JButton("Aceptar");
 		buttonAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				//marco.setContentPane(new CierreVenta(marco, modelo));
+				int totalAbonar = 0;
+				int temporal = 0;
+				for (int i = 0; i<modelo.getRowCount(); i++) {
+					temporal = (int) modelo.getValueAt(i, 4);
+					totalAbonar = totalAbonar + temporal;
+					System.out.println(temporal);
+				}
+				marco.setContentPane(new CierreVenta(marco,totalAbonar));
 			}
 		});
 		
