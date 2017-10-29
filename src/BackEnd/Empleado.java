@@ -17,5 +17,22 @@ public class Empleado {
 		this.fechaDeIngreso = fechaDeIngreso;
 		
 	}
+
+	public Empleado(String text) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getApellido() {
+		// TODO Auto-generated method stub
+		return this.apellido;
+	}
 	
+	public String getNombre() {
+		// TODO Auto-generated method stub
+		return this.nombre;
+	}
+	
+	public Date getFechaDeIngreso() {
+		return this.fechaDeIngreso;
+	}
 }
