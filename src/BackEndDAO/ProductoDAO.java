@@ -12,8 +12,8 @@ import BackEnd.Producto;
 
 public class ProductoDAO {
 	
-	private Connection connect = null;
-    private Statement statement = null;
+	private Connection conexion = null;
+    private Statement declaracion = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
 
@@ -23,11 +23,9 @@ public class ProductoDAO {
 
 	public Producto obtenerProductoDesdeCodigo(String codigo) throws Exception {
 		//obtener datos desde un query
-		Class.forName("com.mysql.jdbc.Driver");
-		//conexion 
-		connect = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/feedback?"
-                        + "user=sqluser&password=sqluserpw");
+		conexion = Conexion.conectar();
+		// se alista a la conexion para recibir consultas
+		declaracion = conexion.createStatement();
 		
 		//statement 
 		
@@ -36,7 +34,7 @@ public class ProductoDAO {
 		return new Producto(codigo, "producto_"+codigo, 2);
 	}
 	
-	public void readDataBase() throws Exception {
+/*	public void readDataBase() throws Exception {
         try {
             // This will load the MySQL driver, each DB has its own driver
             Class.forName("com.mysql.jdbc.Driver");
@@ -137,5 +135,7 @@ public class ProductoDAO {
 
         }
     }
+*/
+
 
 }
