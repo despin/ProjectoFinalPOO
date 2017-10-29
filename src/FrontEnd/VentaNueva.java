@@ -19,6 +19,7 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import com.sun.media.sound.ModelOscillator;
 
+import BackEnd.Empleado;
 import BackEnd.Producto;
 
 import java.awt.Component;
@@ -46,10 +47,10 @@ public class VentaNueva extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private JTextField textFieldCodProducto;
-	VentaNueva (JFrame marco, String codigoDeEmpleado) {
+	VentaNueva (JFrame marco,Empleado empleado) {
 		setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel("Empleado"+codigoDeEmpleado);
+		JLabel lblNewLabel = new JLabel("Empleado "+empleado.getApellido()+", "+empleado.getNombre());
 		add(lblNewLabel);
 		
 		String[] headerTable = new String[] {
@@ -74,7 +75,7 @@ public class VentaNueva extends JPanel {
 					totalAbonar = totalAbonar + temporal;
 					System.out.println(temporal);
 				}
-				marco.setContentPane(new CierreVenta(marco,totalAbonar));
+				marco.setContentPane(new CierreVenta(marco,totalAbonar,empleado));
 			}
 		});
 		
