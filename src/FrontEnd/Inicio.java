@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import BackEnd.Empleado;
+
 import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JMenuBar;
@@ -38,7 +41,8 @@ public class Inicio extends JPanel{
 		btnVentaNueva.setToolTipText("Inicia el proceso de venta");
 		btnVentaNueva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				marco.setContentPane(new VentaNueva(marco, codEmpleado.getText()));
+				Empleado nuevoEmpleado = new Empleado(codEmpleado.getText());
+				marco.setContentPane(new VentaNueva(marco, nuevoEmpleado));
 				marco.validate();
 			}
 		});
@@ -49,7 +53,7 @@ public class Inicio extends JPanel{
 		btnPanelControl.setToolTipText("Administra y monitoriza las transacciones del sistema");
 		btnPanelControl.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				marco.setContentPane(new PanelControl(marco, codEmpleado.getText()));
+				marco.setContentPane(new PanelControl(marco, new Empleado(codEmpleado.getText())));
                 marco.validate();	
 			}
 		});
