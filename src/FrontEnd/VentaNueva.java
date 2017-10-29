@@ -36,6 +36,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
 
 public class VentaNueva extends JPanel {
 	/**
@@ -61,13 +63,16 @@ public class VentaNueva extends JPanel {
 				headerTable
 			);
 		
-		JButton button_1 = new JButton("Aceptar");
-		button_1.addActionListener(new ActionListener() {
+		JButton buttonAceptar = new JButton("Aceptar");
+		buttonAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				table.get
+				
 			}
 		});
-		add(button_1, BorderLayout.SOUTH);
+		
+		JPanel panel = new JPanel();
+		add(panel, BorderLayout.WEST);
+		add(buttonAceptar, BorderLayout.SOUTH);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -87,25 +92,37 @@ public class VentaNueva extends JPanel {
 		
 		JPanel panelTop = new JPanel();
 		add(panelTop, BorderLayout.NORTH);
-		panelTop.setLayout(new BoxLayout(panelTop, BoxLayout.X_AXIS));
+		panelTop.setLayout(new BorderLayout(0, 0));
+		
+		JMenuBar menuBar = new JMenuBar();
+		panelTop.add(menuBar, BorderLayout.NORTH);
+		
+		JMenu mnArchivo = new JMenu("Archivo");
+		menuBar.add(mnArchivo);
+		
+		JPanel panel_1 = new JPanel();
+		panelTop.add(panel_1, BorderLayout.SOUTH);
+		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
 		
 		JButton btnAgregar = new JButton("Agregar");
-		panelTop.add(btnAgregar);
+		panel_1.add(btnAgregar);
 		
 		textFieldCodProducto = new JTextField();
+		panel_1.add(textFieldCodProducto);
 		textFieldCodProducto.setColumns(6);
-		panelTop.add(textFieldCodProducto);
 		
 		JSpinner spinner = new JSpinner();
-		panelTop.add(spinner);
+		panel_1.add(spinner);
 		
 		JButton btnQuitar = new JButton("Quitar");
+		panel_1.add(btnQuitar);
 		btnQuitar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				modelo.removeRow(table.getSelectedRow());
+			public void actionPerformed(ActionEvent e) {	
+				if (table.getSelectedRow() < 0 && modelo.getRowCount() > 0 ) {
+					modelo.removeRow(modelo.getRowCount()-1);
+				}
 			}
 		});
-		panelTop.add(btnQuitar);
 		
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
