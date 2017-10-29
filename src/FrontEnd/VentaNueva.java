@@ -5,6 +5,8 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import java.awt.GridLayout;
+
+import javax.jws.WebParam.Mode;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -40,16 +42,12 @@ public class VentaNueva extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField textFieldCodProducto;
 	private JTable table;
-	private JSpinner spinner;
+	private JTextField textFieldCodProducto;
 	VentaNueva (JFrame marco, String codigoDeEmpleado) {
-		//agregar arraylist productosvendidos
-		
-		setLayout(null);
+		setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel = new JLabel("Empleado"+codigoDeEmpleado);
-		lblNewLabel.setBounds(121, 12, 122, 15);
 		add(lblNewLabel);
 		
 		String[] headerTable = new String[] {
@@ -63,34 +61,16 @@ public class VentaNueva extends JPanel {
 				headerTable
 			);
 		
-		JButton btnAceptar = new JButton("Aceptar");
-		btnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
+		JButton button_1 = new JButton("Aceptar");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				table.get
 			}
 		});
-		btnAceptar.setBounds(260, 265, 102, 25);
-		add(btnAceptar);
-		
-		
-		
-		textFieldCodProducto = new JTextField();
-		textFieldCodProducto.setBounds(115, 28, 122, 19);
-		add(textFieldCodProducto);
-		textFieldCodProducto.setColumns(6);
-		
-		JButton btnQuitar = new JButton("Quitar");
-		btnQuitar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//quitar fila con removeRow
-			}
-		});
-		btnQuitar.setBounds(401, 25, 72, 25);
-		add(btnQuitar);
+		add(button_1, BorderLayout.SOUTH);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(32, 62, 497, 191);
 		add(scrollPane);
 		
 		JPanel panelTable = new JPanel();
@@ -104,24 +84,41 @@ public class VentaNueva extends JPanel {
 		table.getColumnModel().getColumn(1).setPreferredWidth(203);
 		panelTable.add(table.getTableHeader(), BorderLayout.NORTH);
 		panelTable.add(table, BorderLayout.CENTER);
-
 		
-		
-		
-		spinner = new JSpinner();
-		spinner.setModel(new SpinnerNumberModel(1, 1, 15, 1));
-		spinner.setBounds(249, 28, 61, 20);
-		add(spinner);
+		JPanel panelTop = new JPanel();
+		add(panelTop, BorderLayout.NORTH);
+		panelTop.setLayout(new BoxLayout(panelTop, BoxLayout.X_AXIS));
 		
 		JButton btnAgregar = new JButton("Agregar");
+		panelTop.add(btnAgregar);
+		
+		textFieldCodProducto = new JTextField();
+		textFieldCodProducto.setColumns(6);
+		panelTop.add(textFieldCodProducto);
+		
+		JSpinner spinner = new JSpinner();
+		panelTop.add(spinner);
+		
+		JButton btnQuitar = new JButton("Quitar");
+		btnQuitar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				modelo.removeRow(table.getSelectedRow());
+			}
+		});
+		panelTop.add(btnQuitar);
+		
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Producto productoNuevo = new Producto(textFieldCodProducto.getText());
+				Producto productoNuevo = null;
+				try {
+					productoNuevo = new Producto(textFieldCodProducto.getText());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				int precioTotal = productoNuevo.getPrecio() * (int) spinner.getValue();
 				modelo.addRow(new Object[]{productoNuevo.getCodProducto(), productoNuevo.getNombre(), productoNuevo.getPrecio(), spinner.getValue(), precioTotal});
 			}
 		});
-		btnAgregar.setBounds(22, 25, 81, 25);
-		add(btnAgregar);
 	}
 }
