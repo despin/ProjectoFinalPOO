@@ -41,7 +41,14 @@ public class Inicio extends JPanel{
 		btnVentaNueva.setToolTipText("Inicia el proceso de venta");
 		btnVentaNueva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Empleado nuevoEmpleado = new Empleado(codEmpleado.getText());
+				Empleado nuevoEmpleado = null;
+				try {
+					nuevoEmpleado = new Empleado(codEmpleado.getText());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println(nuevoEmpleado.getNombre());
 				marco.setContentPane(new VentaNueva(marco, nuevoEmpleado));
 				marco.validate();
 			}
@@ -53,7 +60,12 @@ public class Inicio extends JPanel{
 		btnPanelControl.setToolTipText("Administra y monitoriza las transacciones del sistema");
 		btnPanelControl.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				marco.setContentPane(new PanelControl(marco, new Empleado(codEmpleado.getText())));
+				try {
+					marco.setContentPane(new PanelControl(marco, new Empleado(codEmpleado.getText())));
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
                 marco.validate();	
 			}
 		});
