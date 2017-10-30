@@ -120,6 +120,7 @@ public class VentaNueva extends JPanel {
 		textFieldCodProducto.setColumns(6);
 		
 		JSpinner spinner = new JSpinner();
+		spinner.setModel(new SpinnerNumberModel(1, 1, 1000, 1));
 		panel_1.add(spinner);
 		
 		JButton btnQuitar = new JButton("Quitar");
