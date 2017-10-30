@@ -3,8 +3,6 @@ package BackEnd;
 import java.util.Date;
 
 import BackEndDAO.EmpleadoDAO;
-import BackEndDAO.ProductoDAO;
-
 public class Empleado {
 
 	String codigoDeEmpleado;
