@@ -59,6 +59,9 @@ public class PanelControl extends JPanel {
 		JMenuItem menuItemEmpleado = new JMenuItem("Empleado");
 		mnAadir.add(menuItemEmpleado);
 		
+		JMenu mnFiltrar = new JMenu("Filtrar");
+		menuBar.add(mnFiltrar);
+		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		add(tabbedPane, BorderLayout.CENTER);
 		
