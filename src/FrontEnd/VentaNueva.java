@@ -39,6 +39,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class VentaNueva extends JPanel {
 	/**
@@ -130,8 +131,10 @@ public class VentaNueva extends JPanel {
 		JButton btnQuitar = new JButton("Quitar");
 		panel_1.add(btnQuitar);
 		btnQuitar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {	
-				if (table.getSelectedRow() < 0 && modelo.getRowCount() > 0 ) {
+			public void actionPerformed(ActionEvent e) {
+				if (table.getSelectedRow() > -1) {
+					modelo.removeRow(table.getSelectedRow());
+				} else if (table.getSelectedRow() < 0 && modelo.getRowCount()>0) {
 					modelo.removeRow(modelo.getRowCount()-1);
 				}
 			}
@@ -146,8 +149,12 @@ public class VentaNueva extends JPanel {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				int precioTotal = productoNuevo.getPrecio() * (int) spinner.getValue();
-				modelo.addRow(new Object[]{productoNuevo.getCodProducto(), productoNuevo.getNombre(), productoNuevo.getPrecio(), spinner.getValue(), precioTotal});
+				if (productoNuevo.getNombre()!=null) {
+					int precioTotal = productoNuevo.getPrecio() * (int) spinner.getValue();
+					modelo.addRow(new Object[]{productoNuevo.getCodProducto(), productoNuevo.getNombre(), productoNuevo.getPrecio(), spinner.getValue(), precioTotal});
+				} else {
+					JOptionPane.showMessageDialog(null, "ESE PRODUCTO NO EXISTE");
+				}
 				textFieldCodProducto.setText("");
 				spinner.setValue((int) 1);
 			}
