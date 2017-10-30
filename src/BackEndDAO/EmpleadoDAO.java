@@ -3,7 +3,9 @@ package BackEndDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -47,6 +49,23 @@ public class EmpleadoDAO {
 		
 		
 		return new Empleado (codigo, nombre, apellido, fecha);
+	}
+	
+	public ArrayList<Empleado> obtenerTodosLosEmpleados() throws SQLException {
+		ArrayList<Empleado> lista = new ArrayList<Empleado>();
+		
+        conexion = Conexion.conectar();
+		
+		prepared = conexion.prepareStatement("Select * From supermercado.Empleado");
+        
+        resultSet = prepared.executeQuery();
+        
+        while(resultSet.next()) {
+        	Empleado nuevo = new Empleado(resultSet.getString("codEmpleado"), resultSet.getString("nombre"),resultSet.getString("apellido"), resultSet.getDate("fechaIngreso"));
+        	lista.add(nuevo);
+        }
+
+		return lista;
 	}
 	/*
 	 obtener datos desde un query
