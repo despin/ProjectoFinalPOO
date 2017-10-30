@@ -15,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JToolBar;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import com.sun.media.sound.ModelOscillator;
 
