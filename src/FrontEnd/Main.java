@@ -6,7 +6,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		JFrame marco = new JFrame("SuperSoft v0.0 proto");
+		JFrame marco = new JFrame("MarketSystem v0.1");
 		marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		marco.setBounds(300, 100, 800, 600);
 		marco.setVisible(true);
