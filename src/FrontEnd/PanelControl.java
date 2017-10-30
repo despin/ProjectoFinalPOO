@@ -23,10 +23,11 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.JList;
 
 public class PanelControl extends JPanel {
 	private JTable tableProductos;
-	private JTable tableDescuentos;
 	private JTable tableEmpleados;
 	private JTable table;
 	PanelControl(JFrame marco,Empleado empleado) {
@@ -75,15 +76,20 @@ public class PanelControl extends JPanel {
 		JScrollPane scrollPaneDescuento = new JScrollPane();
 		tabbedPane.addTab("Descuentos", null, scrollPaneDescuento, null);
 		
-		tableDescuentos = new JTable();
-		tableDescuentos.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				
-			}
-		));
-		scrollPaneDescuento.setViewportView(tableDescuentos);
+		JPanel panel_1 = new JPanel();
+		scrollPaneDescuento.setViewportView(panel_1);
+		panel_1.setLayout(null);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(28, 12, 157, 24);
+		
+		
+		
+		panel_1.add(comboBox);
+		
+		JList list = new JList();
+		list.setBounds(197, 12, 233, 184);
+		panel_1.add(list);
 		
 		JScrollPane scrollPaneEmpleado = new JScrollPane();
 		tabbedPane.addTab("Empleados", null, scrollPaneEmpleado, null);
