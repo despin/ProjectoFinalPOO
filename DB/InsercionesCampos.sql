@@ -21,6 +21,9 @@ INSERT INTO `Producto` (`codigoBarras`,`Nombre`,`Precio_Unitario`) VALUES
 ("33619","Mayonesa",30),
 ("14817","Pochoclos",35);
 
+INSERT INTO `Descuento` (`Nombre`,`Porcentaje`) VALUES 
+("Carnes",10),
+("CocaCola",15);
 
 INSERT INTO `Venta` (`Cajero_Responsable`,`Fecha_Venta`,`Precio_Total`) VALUES 
 ("27109",'2017-09-20 09:16:14',65),
@@ -35,15 +38,4 @@ INSERT INTO `Venta` (`Cajero_Responsable`,`Fecha_Venta`,`Precio_Total`) VALUES
 ("05266",'2017-04-01 16:40:09',42);
 
 
-INSERT INTO `Descuento` (`Nombre`,`Porcentaje`) VALUES 
-("Navidad",20),
-("Año nuevo",20),
-("Pascuas",15),
-("Dia de la Madre",25),
-("Invierno",10),
-("Dia de la Primavera",15),
-("Cumpleaños",25),
-("Dia del niño",15),
-("Miercoles",20),
-("Domingos",15);
 
