@@ -60,7 +60,7 @@ public class ProductoDAO {
 		
         conexion = Conexion.conectar();
 		
-		prepared = conexion.prepareStatement("Select * From supermercado.Producto");
+		prepared = conexion.prepareStatement("Select * From Producto");
         
         resultSet = prepared.executeQuery();
         
