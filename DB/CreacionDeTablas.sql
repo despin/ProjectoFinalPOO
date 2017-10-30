@@ -10,7 +10,6 @@ CREATE TABLE Empleado(
     PRIMARY KEY (`codEmpleado`)
 );
 
-DROP TABLE Producto;
 CREATE TABLE Producto(
     codigoBarras	VARCHAR(6) NOT NULL,
     nombre 			NVARCHAR(30),
@@ -19,17 +18,17 @@ CREATE TABLE Producto(
 );
 
 CREATE TABLE Descuento(
-    id_descuento	INT AUTO_INCREMENT PRIMARY KEY,
+    id_descuento	INT AUTO_INCREMENT,
     nombre 			NVARCHAR(20),
     porcentaje 		INT,
     PRIMARY KEY (`id_descuento`)
 );
 
 CREATE TABLE Venta(
-    id_Venta 		INT AUTO_INCREMENT PRIMARY KEY,
+    id_Venta 		INT AUTO_INCREMENT,
     cajero 			VARCHAR(6) NOT NULL,
     fechaVenta 		DATETIME,
-    precioTotal 	INT
+    precioTotal 	INT,
     PRIMARY KEY (`id_Venta`),
     CONSTRAINT `fk_Venta_cajero`
         FOREIGN KEY (`cajero`)
@@ -37,9 +36,9 @@ CREATE TABLE Venta(
 );
 
 CREATE TABLE ItemProducto(
-    id_Registro 	INT AUTO_INCREMENT PRIMARY KEY,
+    id_Registro 	INT AUTO_INCREMENT,
     id_Venta 		INT NOT NULL,
-    codProducto 	INT NOT NULL,
+    codProducto 	VARCHAR(6) NOT NULL,
     cantidad 		INT,
     precio 			INT,
     PRIMARY KEY (`id_Registro`),
@@ -51,13 +50,17 @@ CREATE TABLE ItemProducto(
         REFERENCES `supermercado`.`Producto` (`codigoBarras`)
 );
 
+DROP TABLE ProductosConDescuento;
+
 CREATE TABLE ProductosConDescuento (
-    id_producto 	INT NOT NULL,
-    id_descuento 	INT NOT NULL,
-    CONSTRAINT `fk_ProductosConDescuento_producto`
-        FOREIGN KEY (`id_producto`)
-        REFERENCES `supermercado`.`Producto` (`codigoBarras`),
-    CONSTRAINT `fk_ProductosConDescuento_descuento`
-        FOREIGN KEY (`id_descuento`)
-        REFERENCES `supermercado`.`Descuento` (`id_descuento`)
+    id_registro     INT AUTO_INCREMENT,
+    id_producto 	VARCHAR(6) NOT NULL,
+    id_descuento 	INT,
+    PRIMARY KEY (id_registro)
+#    CONSTRAINT `fk_ProductosConDescuento_producto`
+#        FOREIGN KEY (`id_producto`)
+##        REFERENCES `supermercado`.`Producto` (`codigoBarras`),
+#    CONSTRAINT `fk_ProductosConDescuento_descuento`
+#        FOREIGN KEY (`id_descuento`)
+#        REFERENCES `supermercado`.`Descuento` (`id_descuento`)
 );
