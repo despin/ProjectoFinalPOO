@@ -3,8 +3,8 @@ Hacer el script para crear las tablas
 
 Entrega el 10/11 (Viernes) 1era Parte
 
-[✓]Diagrama de Clases (UML)
-[✓]Codificacion de las Clases 
--Maqueta y Transicion de las Pantallas
-[✓]Diagrama Entidad Relacion de la Base de Datos
-[✓]Script con las tablas de Base de Datos
+[✓] - Diagrama de Clases (UML)
+[✓] - Codificacion de las Clases 
+[✓] - Maqueta y Transicion de las Pantallas
+[✓] - Diagrama Entidad Relacion de la Base de Datos
+[✓] - Script con las tablas de Base de Datos
