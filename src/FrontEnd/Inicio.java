@@ -13,6 +13,7 @@ import BackEnd.Empleado;
 import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 
 public class Inicio extends JPanel{
 	private JTextField codEmpleado;
@@ -48,9 +49,14 @@ public class Inicio extends JPanel{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				System.out.println(nuevoEmpleado.getNombre());
-				marco.setContentPane(new VentaNueva(marco, nuevoEmpleado));
-				marco.validate();
+				if (nuevoEmpleado.getNombre()!=null){
+					System.out.println(nuevoEmpleado.getNombre());
+					marco.setContentPane(new VentaNueva(marco, nuevoEmpleado));
+					marco.validate();
+				} else {
+					JOptionPane.showMessageDialog(null, "ESE EMPLEADO NO EXISTE");
+					codEmpleado.setText("");
+				}
 			}
 		});
 		btnVentaNueva.setMnemonic('v');
@@ -60,13 +66,20 @@ public class Inicio extends JPanel{
 		btnPanelControl.setToolTipText("Administra y monitoriza las transacciones del sistema");
 		btnPanelControl.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Empleado nuevoEmpleado = null;
 				try {
-					marco.setContentPane(new PanelControl(marco, new Empleado(codEmpleado.getText())));
+					nuevoEmpleado = new Empleado(codEmpleado.getText());
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-                marco.validate();	
+				if (nuevoEmpleado.getNombre()!=null){
+					marco.setContentPane(new PanelControl(marco, nuevoEmpleado));
+					marco.validate();
+				} else {
+					JOptionPane.showMessageDialog(null, "ESE EMPLEADO NO EXISTE");
+					codEmpleado.setText("");
+				}
 			}
 		});
 		btnPanelControl.setMnemonic('c');
