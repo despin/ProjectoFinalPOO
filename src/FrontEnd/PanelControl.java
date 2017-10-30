@@ -65,6 +65,12 @@ public class PanelControl extends JPanel {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		add(tabbedPane, BorderLayout.CENTER);
 		
+		JScrollPane scrollPaneVenta = new JScrollPane();
+		tabbedPane.addTab("Ventas", null, scrollPaneVenta, null);
+		
+		table = new JTable();
+		scrollPaneVenta.setViewportView(table);
+		
 		JScrollPane scrollPaneDescuento = new JScrollPane();
 		tabbedPane.addTab("Descuentos", null, scrollPaneDescuento, null);
 		
