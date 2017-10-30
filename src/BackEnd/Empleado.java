@@ -31,6 +31,10 @@ public class Empleado {
 		this.fechaDeIngreso = nuevo.getFechaDeIngreso();
 	}
 
+	public String getCodigo() {
+		return this.codigoDeEmpleado;
+	}
+	
 	public String getApellido() {
 		// TODO Auto-generated method stub
 		return this.apellido;
