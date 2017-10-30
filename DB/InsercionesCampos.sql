@@ -10,10 +10,18 @@ INSERT INTO `Empleado` (`codEmpleado`,`nombre`,`apellido`,`fechaIngreso`) VALUES
 ("00002B","Nicolas","Ravier",'2011-04-25');
 
 INSERT INTO `Producto` (`codigoBarras`,`Nombre`,`Precio_Unitario`) VALUES 
-("18557","Cerveza",50),
+("18557","Cerveza Quilmes",50),
+("18553","Cerveza Brahma",45),
+("12456","CocaCola regular", 20),
+("14743","CocaCola Light", 23),
+("63567","CocaCola Zero", 25),
 ("39278","Galletitas",20),
-("64529","Carne",120),
-("46722","Aceite",60),
+("64529","Carne Asado",120),
+("81235","Carne Pechito de Cerdo", 150),
+("84521","Carne Pollo", 160),
+("46722","Aceite de oliva",60),
+("32573","Aceite de girasol", 40),
+("56556","Aceite de sesamo", 80),
 ("03942","Jabon",30),
 ("36757","Pescado",150),
 ("18784","Verduras",40),
