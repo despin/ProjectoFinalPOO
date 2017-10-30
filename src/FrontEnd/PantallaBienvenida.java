@@ -16,7 +16,15 @@ public class PantallaBienvenida extends JPanel {
 		lblNewLabel.setFont(lblNewLabel.getFont().deriveFont(lblNewLabel.getFont().getSize() + 6f));
 		lblNewLabel.setBounds(40, 27, 357, 23);
 		add(lblNewLabel);
-		validate();
+		
+		JProgressBar progressBar = new JProgressBar();
+		progressBar.setIndeterminate(true);
+		progressBar.setBounds(31, 168, 348, 14);
+		add(progressBar);
+		
+		JLabel lblCargando = new JLabel("Cargando...");
+		lblCargando.setBounds(158, 141, 111, 15);
+		add(lblCargando);
 		
 
 	}
