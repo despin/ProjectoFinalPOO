@@ -2,6 +2,9 @@ package BackEnd;
 
 import java.util.Date;
 
+import BackEndDAO.EmpleadoDAO;
+import BackEndDAO.ProductoDAO;
+
 public class Empleado {
 
 	String codigoDeEmpleado;
@@ -18,8 +21,14 @@ public class Empleado {
 		
 	}
 
-	public Empleado(String text) {
+	public Empleado(String text) throws Exception {
 		// TODO Auto-generated constructor stub
+		EmpleadoDAO dao = new EmpleadoDAO();
+		Empleado nuevo = dao.obtenerEmpleadoDesdeCodigo(text);
+		this.codigoDeEmpleado = text;
+		this.nombre = nuevo.getNombre();
+		this.apellido = nuevo.getApellido();
+		this.fechaDeIngreso = nuevo.getFechaDeIngreso();
 	}
 
 	public String getApellido() {
