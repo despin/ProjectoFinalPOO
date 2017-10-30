@@ -10,8 +10,9 @@ CREATE TABLE Empleado(
     PRIMARY KEY (`codEmpleado`)
 );
 
+DROP TABLE Producto;
 CREATE TABLE Producto(
-    codigoBarras	INT NOT NULL PRIMARY KEY,
+    codigoBarras	VARCHAR(6) NOT NULL,
     nombre 			NVARCHAR(30),
     precio_Unitario INT,
     PRIMARY KEY (`codigoBarras`)

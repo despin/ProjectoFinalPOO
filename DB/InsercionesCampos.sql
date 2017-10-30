@@ -8,7 +8,7 @@ INSERT INTO `Empleado` (`ID_Empleado`,`Nombre`,`Apellido`,`Fecha_De_Ingreso_A_La
 ("00006D","Franco","Casco",'2012-12-11'),
 ("00002B","Nicolas","Ravier",'2011-04-25');
 
-INSERT INTO `Producto` (`Codigo_De_Barras`,`Nombre`,`Precio_Unitario`) VALUES 
+INSERT INTO `Producto` (`codigoBarras`,`Nombre`,`Precio_Unitario`) VALUES 
 ("18557","Cerveza",50),
 ("39278","Galletitas",20),
 ("64529","Carne",120),

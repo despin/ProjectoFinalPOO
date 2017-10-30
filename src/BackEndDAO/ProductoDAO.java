@@ -14,7 +14,7 @@ public class ProductoDAO {
 	
 	private Connection conexion = null;
     private Statement declaracion = null;
-    private PreparedStatement preparedStatement = null;
+    private PreparedStatement prepared= null;
     private ResultSet resultSet = null;
 
 	
@@ -23,15 +23,35 @@ public class ProductoDAO {
 
 	public Producto obtenerProductoDesdeCodigo(String codigo) throws Exception {
 		//obtener datos desde un query
-		conexion = Conexion.conectar();
+        System.out.println(codigo);
+        
+        conexion = Conexion.conectar();
 		// se alista a la conexion para recibir consultas
-		declaracion = conexion.createStatement();
+        /*declaracion = conexion.createStatement();
+
+        resultSet = declaracion.executeQuery("Select * From supermercado.Producto where codigoBarras="+codigo+";");*/
+        
+        prepared = conexion.prepareStatement("Select * From supermercado.Producto where codigoBarras= ? ");
+        
+        prepared.setString(1, codigo);
+        
+        resultSet = prepared.executeQuery();
+        
+        String nombre = null;
+        int precio = 0;
+        
+        
+        
+        while (resultSet.next()) {
+        	nombre = resultSet.getString("nombre");
+        	precio = resultSet.getInt("precio_Unitario");
+        }
 		
 		//statement 
 		
 		//query
 		
-		return new Producto(codigo, "producto_"+codigo, 2);
+		return new Producto(codigo, nombre, precio);
 	}
 	
 /*	public void readDataBase() throws Exception {
