@@ -1,5 +1,6 @@
+USE supermercado;
 
-INSERT INTO `Empleado` (`ID_Empleado`,`Nombre`,`Apellido`,`Fecha_De_Ingreso_A_La_Empresa`) VALUES 
+INSERT INTO `Empleado` (`codEmpleado`,`nombre`,`apellido`,`fechaIngreso`) VALUES 
 ("00003D","Pedro","Calogero",'2013-12-24'),
 ("00004F","Cristian","Aquino",'2014-07-09'),
 ("00002A","Matias","Quimey",'2015-09-06'),
