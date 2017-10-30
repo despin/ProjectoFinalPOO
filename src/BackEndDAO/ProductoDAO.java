@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 
 import BackEnd.Producto;
@@ -14,7 +15,7 @@ public class ProductoDAO {
 	
 	private Connection conexion = null;
     private Statement declaracion = null;
-    private PreparedStatement prepared= null;
+    private PreparedStatement prepared = null;
     private ResultSet resultSet = null;
 
 	
@@ -52,6 +53,23 @@ public class ProductoDAO {
 		//query
 		
 		return new Producto(codigo, nombre, precio);
+	}
+	
+	public ArrayList<Producto> obtenerTodosLosProductos() throws SQLException {
+		ArrayList<Producto> lista = new ArrayList<Producto>();
+		
+        conexion = Conexion.conectar();
+		
+		prepared = conexion.prepareStatement("Select * From supermercado.Producto");
+        
+        resultSet = prepared.executeQuery();
+        
+        while(resultSet.next()) {
+        	Producto nuevo = new Producto(resultSet.getString("codigoBarras"), resultSet.getString("nombre"), resultSet.getInt("precio_Unitario"));
+        	lista.add(nuevo);
+        }
+
+		return lista;
 	}
 	
 /*	public void readDataBase() throws Exception {
