@@ -35,4 +35,11 @@ INSERT INTO `Descuento` (`Nombre`,`Porcentaje`) VALUES
 
 SELECT * FROM Descuento;
 
+INSERT INTO ProductosConDescuento (id_producto, id_descuento) VALUES 
+("12456",2),
+("14743",2),
+("63567",2),
+("64529",1),
+("81235",1),
+("84521",1);
 
