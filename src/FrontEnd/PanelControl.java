@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import BackEnd.Empleado;
 import BackEnd.Producto;
+import BackEndDAO.EmpleadoDAO;
 import BackEndDAO.ProductoDAO;
 
 import java.awt.BorderLayout;
@@ -87,7 +88,34 @@ public class PanelControl extends JPanel {
 		JScrollPane scrollPaneEmpleado = new JScrollPane();
 		tabbedPane.addTab("Empleados", null, scrollPaneEmpleado, null);
 		
+
+		DefaultTableModel modeloEmpleado = new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+						"Codigo", "Nombre", "Apellido", "Fecha de Ingreso"	
+				}
+			);
+		
+		EmpleadoDAO empleadoDao = new EmpleadoDAO();
+		
+		try {
+			for (Empleado e : empleadoDao.obtenerTodosLosEmpleados()) {
+				modeloEmpleado.addRow(new Object[] {
+						e.getCodigo(),
+						e.getNombre(),
+						e.getApellido(),
+						e.getFechaDeIngreso()	
+				});
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		tableEmpleados = new JTable();
+		tableEmpleados.setModel(modeloEmpleado);
+		
 		scrollPaneEmpleado.setViewportView(tableEmpleados);
 		
 		JScrollPane scrollPaneProducto = new JScrollPane();
