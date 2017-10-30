@@ -32,7 +32,7 @@ public class EmpleadoDAO {
 		
 		//statement 
 		//query
-		prepared = conexion.prepareStatement("Select * From supermercado.Empleado where codEmpleado= ? ");
+		prepared = conexion.prepareStatement("Select * From Empleado where codEmpleado= ? ");
         prepared.setString(1, codigo);
         
         resultSet = prepared.executeQuery();

@@ -32,7 +32,7 @@ public class ProductoDAO {
 
         resultSet = declaracion.executeQuery("Select * From supermercado.Producto where codigoBarras="+codigo+";");*/
         
-        prepared = conexion.prepareStatement("Select * From supermercado.Producto where codigoBarras= ? ");
+        prepared = conexion.prepareStatement("Select * From Producto where codigoBarras= ? ");
         
         prepared.setString(1, codigo);
         
