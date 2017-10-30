@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import BackEnd.Empleado;
+import BackEnd.Producto;
+import BackEndDAO.ProductoDAO;
+
 import java.awt.BorderLayout;
 import javax.swing.JMenuBar;
 import javax.swing.BoxLayout;
@@ -17,12 +20,14 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class PanelControl extends JPanel {
 	private JTable tableProductos;
 	private JTable tableDescuentos;
 	private JTable tableEmpleados;
+	private JTable table;
 	PanelControl(JFrame marco,Empleado empleado) {
 		setLayout(new BorderLayout(0, 0));
 		
@@ -79,14 +84,32 @@ public class PanelControl extends JPanel {
 		JScrollPane scrollPaneProducto = new JScrollPane();
 		tabbedPane.addTab("Productos", null, scrollPaneProducto, null);
 		
-		tableProductos = new JTable();
-		tableProductos.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				
+		DefaultTableModel modeloProducto = new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+						"Codigo", "Nombre", "Precio"
+					
+				}
+			);
+		
+		ProductoDAO productoDao = new ProductoDAO();
+		
+		try {
+			for (Producto p : productoDao.obtenerTodosLosProductos()) {
+				modeloProducto.addRow(new Object[] {
+						p.getCodProducto(),
+						p.getNombre(),
+						p.getPrecio()
+				});
 			}
-		));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		tableProductos = new JTable();
+		tableProductos.setModel(modeloProducto);
 		scrollPaneProducto.setViewportView(tableProductos);
 		
 	}
