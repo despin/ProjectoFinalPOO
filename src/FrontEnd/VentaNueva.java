@@ -38,6 +38,7 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class VentaNueva extends JPanel {
 	/**
@@ -107,6 +108,9 @@ public class VentaNueva extends JPanel {
 		
 		JMenu mnArchivo = new JMenu("Archivo");
 		menuBar.add(mnArchivo);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Empleado "+empleado.getApellido()+", "+empleado.getNombre());
+		menuBar.add(mntmNewMenuItem);
 		
 		JPanel panel_1 = new JPanel();
 		panelTop.add(panel_1, BorderLayout.SOUTH);
