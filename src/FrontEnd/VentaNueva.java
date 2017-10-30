@@ -73,9 +73,9 @@ public class VentaNueva extends JPanel {
 				for (int i = 0; i<modelo.getRowCount(); i++) {
 					temporal = (int) modelo.getValueAt(i, 4);
 					totalAbonar = totalAbonar + temporal;
-					System.out.println(temporal);
 				}
-				marco.setContentPane(new CierreVenta(marco,totalAbonar,empleado));
+				marco.setContentPane(new CierreVenta(marco,empleado,totalAbonar));
+				marco.validate();
 			}
 		});
 		
@@ -145,6 +145,7 @@ public class VentaNueva extends JPanel {
 				int precioTotal = productoNuevo.getPrecio() * (int) spinner.getValue();
 				modelo.addRow(new Object[]{productoNuevo.getCodProducto(), productoNuevo.getNombre(), productoNuevo.getPrecio(), spinner.getValue(), precioTotal});
 				textFieldCodProducto.setText("");
+				spinner.setValue((int) 1);
 			}
 		});
 	}
