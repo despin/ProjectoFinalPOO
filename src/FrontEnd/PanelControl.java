@@ -29,7 +29,7 @@ import javax.swing.JList;
 public class PanelControl extends JPanel {
 	private JTable tableProductos;
 	private JTable tableEmpleados;
-	private JTable table;
+	private JTable tableVentas;
 	PanelControl(JFrame marco,Empleado empleado) {
 		setLayout(new BorderLayout(0, 0));
 		
