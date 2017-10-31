@@ -1,5 +1,11 @@
 USE supermercado;
 
+INSERT Venta (cajero,fechaventa, precioTotal) VALUES ("00003D", '2017-10-10 10:00:32', null);
+
+SELECT * FROM Venta;
+
+INSERT ItemProducto VALUES (default, 1, "08885", 2, 100);
+
 INSERT INTO `Empleado` (`codEmpleado`,`nombre`,`apellido`,`fechaIngreso`) VALUES 
 ("00003D","Pedro","Calogero",'2013-12-24'),
 ("00004F","Cristian","Aquino",'2014-07-09'),
