@@ -1,5 +1,7 @@
 package BackEnd;
 
+import BackEndDAO.ProductoVendidoDAO;
+
 public class ProductoVendido {
 	
 	Producto producto;
