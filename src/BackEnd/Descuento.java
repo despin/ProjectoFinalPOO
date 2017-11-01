@@ -1,6 +1,8 @@
 package BackEnd;
 
 import BackEndDAO.DescuentoDAO;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Descuento {
@@ -17,7 +19,7 @@ public class Descuento {
 		
 	}
 
-	public Descuento(String palabraClave) {
+	public Descuento(String palabraClave) throws SQLException {
 		DescuentoDAO dao = new DescuentoDAO();
 		Descuento nuevo = dao.obtenerDescuentoDesdeCodigo();
 		this.palabraClave = palabraClave;
