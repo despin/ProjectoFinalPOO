@@ -21,7 +21,7 @@ public class Descuento {
 
 	public Descuento(String palabraClave) throws SQLException {
 		DescuentoDAO dao = new DescuentoDAO();
-		Descuento nuevo = dao.obtenerDescuentoDesdeCodigo();
+		Descuento nuevo = dao.obtenerDescuentoDesdeCodigo(palabraClave);
 		this.palabraClave = palabraClave;
 		this.porcentaje = nuevo.porcentaje;
 		ArrayList<Producto> afectados = new ArrayList<Producto>();
