@@ -143,8 +143,10 @@ public class VentaNueva extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (table.getSelectedRow() > -1) {
 					modelo.removeRow(table.getSelectedRow());
+					ventaActual.quitarProducto(table.getSelectedRow());
 				} else if (table.getSelectedRow() < 0 && modelo.getRowCount()>0) {
 					modelo.removeRow(modelo.getRowCount()-1);
+					ventaActual.quitarProducto(ventaActual.cantidadDeProductos()-1);
 				}
 			}
 		});
@@ -159,8 +161,9 @@ public class VentaNueva extends JPanel {
 					e.printStackTrace();
 				}
 				if (productoNuevo.getNombre()!=null) {
-					int precioTotal = productoNuevo.getPrecio() * (int) spinner.getValue();
-					modelo.addRow(new Object[]{productoNuevo.getCodProducto(), productoNuevo.getNombre(), productoNuevo.getPrecio(), spinner.getValue(), precioTotal});
+					ProductoVendido vendido = new ProductoVendido(productoNuevo,(int) spinner.getValue());
+					ventaActual.agregarProducto(vendido);
+					modelo.addRow(new Object[]{vendido.getProducto().getCodProducto(), vendido.getProducto().getNombre(), productoNuevo.getPrecio(), spinner.getValue(), vendido.obtenerPrecioSubtotal()});
 				} else {
 					JOptionPane.showMessageDialog(null, "ESE PRODUCTO NO EXISTE");
 				}
