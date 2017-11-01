@@ -29,10 +29,10 @@ CREATE TABLE Venta(
     cajero 			VARCHAR(6) NOT NULL,
     fechaVenta 		TIMESTAMP,
     precioTotal 	INT,
-    PRIMARY KEY (`id_Venta`),
-    CONSTRAINT `fk_Venta_cajero`
-        FOREIGN KEY (`cajero`)
-        REFERENCES `supermercado`.`Empleado` (`codEmpleado`)
+    PRIMARY KEY (`id_Venta`)
+ #   CONSTRAINT `fk_Venta_cajero`
+ #       FOREIGN KEY (`cajero`)
+ #       REFERENCES `supermercado`.`Empleado` (`codEmpleado`)
 );
 
 CREATE TABLE ItemProducto(
@@ -41,13 +41,13 @@ CREATE TABLE ItemProducto(
     codProducto 	VARCHAR(6) NOT NULL,
     cantidad 		INT,
     precio 			INT,
-    PRIMARY KEY (`id_Registro`),
-    CONSTRAINT `fk_ItemProducto_venta`
-        FOREIGN KEY (`id_Venta`)
-        REFERENCES `supermercado`.`Venta` (`id_Venta`),
-    CONSTRAINT `fk_ItemProducto_producto`
-        FOREIGN KEY (`codProducto`)
-        REFERENCES `supermercado`.`Producto` (`codigoBarras`)
+    PRIMARY KEY (`id_Registro`)
+ #   CONSTRAINT `fk_ItemProducto_venta`
+ #       FOREIGN KEY (`id_Venta`)
+ #       REFERENCES `supermercado`.`Venta` (`id_Venta`),
+ #   CONSTRAINT `fk_ItemProducto_producto`
+ #       FOREIGN KEY (`codProducto`)
+ #       REFERENCES `supermercado`.`Producto` (`codigoBarras`)
 );
 
 DROP TABLE ProductosConDescuento;
