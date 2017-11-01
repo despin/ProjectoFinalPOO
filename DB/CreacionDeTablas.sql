@@ -27,7 +27,7 @@ CREATE TABLE Descuento(
 CREATE TABLE Venta(
     id_Venta 		INT AUTO_INCREMENT,
     cajero 			VARCHAR(6) NOT NULL,
-    fechaVenta 		DATETIME,
+    fechaVenta 		TIMESTAMP,
     precioTotal 	INT,
     PRIMARY KEY (`id_Venta`),
     CONSTRAINT `fk_Venta_cajero`
