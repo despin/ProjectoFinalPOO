@@ -14,12 +14,21 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 import java.awt.event.ActionListener;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
+import com.mysql.fabric.xmlrpc.base.Array;
 import com.sun.media.sound.ModelOscillator;
 
 import BackEnd.Empleado;
 import BackEnd.Producto;
+import BackEnd.ProductoVendido;
+import BackEnd.Venta;
+import BackEndDAO.VentaDAO;
 
 import java.awt.Component;
 import javax.swing.JTable;
