@@ -50,7 +50,7 @@ CREATE TABLE ItemProducto(
  #       REFERENCES `supermercado`.`Producto` (`codigoBarras`)
 );
 
-DROP TABLE ProductosConDescuento;
+DROP TABLE IF EXISTS ProductosConDescuento;
 
 CREATE TABLE ProductosConDescuento (
     id_registro     INT AUTO_INCREMENT,
