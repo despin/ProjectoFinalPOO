@@ -12,4 +12,22 @@ public class ProductoVendido {
 		this.cantidad = cantidad;
 	}
 
+	public int obtenerPrecioSubtotal() {
+		return this.producto.precio * this.cantidad;
+	}
+
+	public Producto getProducto() {
+		return this.producto;
+	}
+
+	public void registrar(int idVenta) {
+		ProductoVendidoDAO dao = new ProductoVendidoDAO();
+		dao.insertar(this, idVenta);
+	}
+
+	public int getCantidad() {
+		// TODO Auto-generated method stub
+		return this.cantidad;
+	}
+
 }
