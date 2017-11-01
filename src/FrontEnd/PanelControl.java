@@ -7,8 +7,10 @@ import javax.swing.JPanel;
 
 import BackEnd.Empleado;
 import BackEnd.Producto;
+import BackEnd.Venta;
 import BackEndDAO.EmpleadoDAO;
 import BackEndDAO.ProductoDAO;
+import BackEndDAO.VentaDAO;
 
 import java.awt.BorderLayout;
 import javax.swing.JMenuBar;
@@ -70,8 +72,35 @@ public class PanelControl extends JPanel {
 		JScrollPane scrollPaneVenta = new JScrollPane();
 		tabbedPane.addTab("Ventas", null, scrollPaneVenta, null);
 		
-		table = new JTable();
-		scrollPaneVenta.setViewportView(table);
+		DefaultTableModel modeloVentas = new DefaultTableModel(
+				new Object[][] {},
+				new String[] {
+					"ID",
+					"Empleado Responsable",
+					"Fecha de realizacion"
+		});
+		
+		VentaDAO ventaDao = new VentaDAO();
+		
+		try {
+			for (Venta v : ventaDao.obtenerTodosLasVentas()) {
+				modeloVentas.addRow(new Object[] {
+						v.getID(),
+						v.getEmpleado().getApellido()+", "+v.getEmpleado().getNombre(),
+						v.getFecha()
+				});
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		tableVentas = new JTable(modeloVentas);
+		scrollPaneVenta.setViewportView(tableVentas);
 		
 		JScrollPane scrollPaneDescuento = new JScrollPane();
 		tabbedPane.addTab("Descuentos", null, scrollPaneDescuento, null);
