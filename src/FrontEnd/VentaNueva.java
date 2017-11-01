@@ -51,6 +51,8 @@ public class VentaNueva extends JPanel {
 	VentaNueva (JFrame marco,Empleado empleado) {
 		setLayout(new BorderLayout(0, 0));
 		
+		Venta ventaActual = new Venta(empleado);
+
 		JLabel lblNewLabel = new JLabel("Empleado "+empleado.getApellido()+", "+empleado.getNombre());
 		add(lblNewLabel);
 		
@@ -69,14 +71,12 @@ public class VentaNueva extends JPanel {
 		buttonAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//marco.setContentPane(new CierreVenta(marco, modelo));
-				int totalAbonar = 0;
-				int temporal = 0;
-				for (int i = 0; i<modelo.getRowCount(); i++) {
-					temporal = (int) modelo.getValueAt(i, 4);
-					totalAbonar = totalAbonar + temporal;
-				}
-				marco.setContentPane(new CierreVenta(marco,empleado,totalAbonar));
-				marco.validate();
+				if(ventaActual.registrar()) {
+					marco.setContentPane(new CierreVenta(marco,empleado,ventaActual.getTotalAbonar()));
+					marco.validate();
+				} else {
+					JOptionPane.showMessageDialog(null, "ERROR AL REGISTAR LA VENTA. Revise los datos");
+				}	
 			}
 		});
 		
