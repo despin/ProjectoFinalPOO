@@ -63,6 +63,30 @@ public class PanelControl extends JPanel {
 		JMenuItem menuItemEmpleado = new JMenuItem("Empleado");
 		mnAadir.add(menuItemEmpleado);
 		
+		JMenu mnQuitar = new JMenu("Quitar");
+		menuBar.add(mnQuitar);
+		
+		JMenuItem menuItem = new JMenuItem("Producto");
+		mnQuitar.add(menuItem);
+		
+		JMenuItem menuItem_1 = new JMenuItem("Descuento");
+		mnQuitar.add(menuItem_1);
+		
+		JMenuItem menuItem_2 = new JMenuItem("Empleado");
+		mnQuitar.add(menuItem_2);
+		
+		JMenu mnModificar = new JMenu("Modificar");
+		menuBar.add(mnModificar);
+		
+		JMenuItem menuItem_3 = new JMenuItem("Producto");
+		mnModificar.add(menuItem_3);
+		
+		JMenuItem menuItem_4 = new JMenuItem("Descuento");
+		mnModificar.add(menuItem_4);
+		
+		JMenuItem menuItem_5 = new JMenuItem("Empleado");
+		mnModificar.add(menuItem_5);
+		
 		JMenu mnFiltrar = new JMenu("Filtrar");
 		menuBar.add(mnFiltrar);
 		
