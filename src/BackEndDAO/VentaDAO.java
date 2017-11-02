@@ -30,7 +30,7 @@ public class VentaDAO {
 			ventas.add(new Venta(
 					rsInterno.getInt("Id_Venta"),
 					new Empleado(rsInterno.getString("cajero")),
-					rsInterno.getDate("fechaVenta")
+					rsInterno.getTimestamp("fechaVenta")
 			));
 			System.out.println(rsInterno.getDate("fechaVenta"));
 		}
