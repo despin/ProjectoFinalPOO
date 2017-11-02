@@ -61,7 +61,7 @@ public class Venta {
 	public int getTotalAbonar() {
 		int totalAbonar = 0;
 		for (ProductoVendido pv : productos) {
-			totalAbonar =+ pv.obtenerPrecioSubtotal();
+			totalAbonar = totalAbonar + pv.obtenerPrecioSubtotal();
 		}
 		return totalAbonar;
 	}
