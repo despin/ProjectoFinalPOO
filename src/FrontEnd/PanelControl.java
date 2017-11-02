@@ -29,6 +29,7 @@ import javax.swing.JComboBox;
 import javax.swing.JList;
 
 public class PanelControl extends JPanel {
+	private static final long serialVersionUID = 1L;
 	private JTable tableProductos;
 	private JTable tableEmpleados;
 	private JTable tableVentas;
@@ -115,10 +116,8 @@ public class PanelControl extends JPanel {
 				});
 			}
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
