@@ -34,7 +34,7 @@ public class Venta {
 	public boolean registrar() {
 		VentaDAO ventaDao = new VentaDAO();
 		try {
-			ID = ventaDao.insertar(this, getTotalAbonar());
+			ID = ventaDao.insertar(this, getTotalAbonarConDescuentos());
 			for (ProductoVendido pv : productos) {
 				pv.registrar(ID);
 			}
@@ -58,14 +58,6 @@ public class Venta {
 		return fechaTransaccion;
 	}
 
-	public int getTotalAbonar() {
-		int totalAbonar = 0;
-		for (ProductoVendido pv : productos) {
-			totalAbonar = totalAbonar + pv.obtenerPrecioSubtotal();
-		}
-		return totalAbonar;
-	}
-	
 	public void agregarProducto(ProductoVendido producto) {
 		this.productos.add(producto);
 	}
@@ -76,7 +68,28 @@ public class Venta {
 	}
 
 	public int cantidadDeProductos() {
-		// TODO Auto-generated method stub
 		return this.productos.size();
+	}
+
+	public void aplicarDescuentos() {
+		for (ProductoVendido pV : productos) {
+			pV.aplicarDescuentos();
+		}
+	}
+
+	public int getTotalAbonar() {
+		int totalAbonar = 0;
+		for (ProductoVendido pv : productos) {
+			totalAbonar = totalAbonar + pv.obtenerPrecioSubtotal();
+		}
+		return totalAbonar;
+	}
+
+	public int getTotalAbonarConDescuentos() {
+		int totalAbonar = 0;
+		for (ProductoVendido pv : productos) {
+			totalAbonar = totalAbonar + pv.obtenerPrecioSubtotalConDescuentosAplicados();
+		}
+		return totalAbonar;
 	}
 }

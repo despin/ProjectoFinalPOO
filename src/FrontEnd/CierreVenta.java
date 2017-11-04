@@ -17,7 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 
 public class CierreVenta extends JPanel {
-	public CierreVenta(JFrame marco, Empleado empleado, Integer total) {
+	public CierreVenta(JFrame marco, Empleado empleado, Integer subtotal, Integer total) {
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
@@ -36,7 +36,7 @@ public class CierreVenta extends JPanel {
 		panel_1.setLayout(null);
 		
 		JLabel label_1 = new JLabel("GRACIAS POR COMPRAR");
-		label_1.setBounds(12, 85, 329, 15);
+		label_1.setBounds(38, 12, 329, 15);
 		panel_1.add(label_1);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -46,7 +46,7 @@ public class CierreVenta extends JPanel {
 		panel_1.add(btnVolver);
 		
 		JLabel lblTotalX = new JLabel("Total: "+total.toString());
-		lblTotalX.setBounds(39, 119, 123, 15);
+		lblTotalX.setBounds(38, 139, 123, 15);
 		panel_1.add(lblTotalX);
 		
 		JButton btnIrAlInicio = new JButton("Ir al inicio");
@@ -59,6 +59,14 @@ public class CierreVenta extends JPanel {
 		});
 		btnIrAlInicio.setBounds(167, 166, 117, 25);
 		panel_1.add(btnIrAlInicio);
+		
+		JLabel lblDescontado = new JLabel("- "+(subtotal-total));
+		lblDescontado.setBounds(85, 112, 70, 15);
+		panel_1.add(lblDescontado);
+		
+		JLabel lblSubtotal = new JLabel(subtotal.toString());
+		lblSubtotal.setBounds(85, 89, 70, 15);
+		panel_1.add(lblSubtotal);
 		
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

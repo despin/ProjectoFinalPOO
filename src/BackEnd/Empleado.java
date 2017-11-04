@@ -1,8 +1,10 @@
 package BackEnd;
 
+import java.sql.SQLException;
 import java.util.Date;
 
 import BackEndDAO.EmpleadoDAO;
+import BackEndDAO.ProductoDAO;
 public class Empleado {
 
 	String codigoDeEmpleado;
@@ -46,4 +48,31 @@ public class Empleado {
 	public Date getFechaDeIngreso() {
 		return this.fechaDeIngreso;
 	}
+
+	public boolean eliminar() {
+		EmpleadoDAO dao = new EmpleadoDAO();
+		try {
+			dao.quitar(this);
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+
+	public boolean registrar() {
+		// TODO Auto-generated method stub
+		EmpleadoDAO dao = new EmpleadoDAO();
+		try {
+			dao.insertar(this);
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }

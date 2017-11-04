@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -67,36 +68,25 @@ public class EmpleadoDAO {
 
 		return lista;
 	}
-	/*
-	 obtener datos desde un query
-        System.out.println(codigo);
+	
+	public void quitar(Empleado empleado) throws SQLException {
+		conexion = Conexion.conectar();
+		
+		prepared = conexion.prepareStatement("DELETE FROM Empleado WHERE codEmpleado = ?");
+		prepared.setString(1, empleado.getCodigo());
         
-        conexion = Conexion.conectar();
-		 se alista a la conexion para recibir consultas
-        declaracion = conexion.createStatement();
+		prepared.executeUpdate();
+	}
 
-        resultSet = declaracion.executeQuery("Select * From supermercado.Producto where codigoBarras="+codigo+";");
-        
-        prepared = conexion.prepareStatement("Select * From supermercado.Producto where codigoBarras= ? ");
-        
-        prepared.setString(1, codigo);
-        
-        resultSet = prepared.executeQuery();
-        
-        String nombre = null;
-        int precio = 0;
-        
-        
-        
-        while (resultSet.next()) {
-        	nombre = resultSet.getString("nombre");
-        	precio = resultSet.getInt("precio_Unitario");
-        }
-		
-		//statement 
-		
-		//query
-		
-		return new Producto(codigo, nombre, precio);
-	 */
+	public void insertar(Empleado empleado) throws SQLException {
+		long tiempo = empleado.getFechaDeIngreso().getTime();
+		java.sql.Timestamp timestamp = new Timestamp(tiempo);
+		conexion = Conexion.conectar();
+		prepared = conexion.prepareStatement("INSERT INTO Empleado VALUES ( ? , ? , ?, ? )");
+		prepared.setString(1, empleado.getCodigo());
+		prepared.setString(2, empleado.getNombre());
+		prepared.setString(3, empleado.getApellido());
+        prepared.setTimestamp(4, timestamp);
+		prepared.executeUpdate();
+	}
 }

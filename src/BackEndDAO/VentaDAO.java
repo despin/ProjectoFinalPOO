@@ -32,7 +32,6 @@ public class VentaDAO {
 					new Empleado(rsInterno.getString("cajero")),
 					rsInterno.getTimestamp("fechaVenta")
 			));
-			System.out.println(rsInterno.getDate("fechaVenta"));
 		}
 
 		return ventas;
@@ -52,8 +51,6 @@ public class VentaDAO {
 		prepared.setTimestamp(2, timestamp);
 		prepared.setInt(3, totalAbonar);
 		prepared.executeUpdate();
-		
-		System.out.println("timestamp "+tiempo);
 
 		
 		int ID = 0;
@@ -64,8 +61,6 @@ public class VentaDAO {
 		while (rsInterno.next()) {
 			ID = rsInterno.getInt(1);
 		}
-		
-		System.out.println("EXEC"+ID);
 		return ID;
 	}
 }

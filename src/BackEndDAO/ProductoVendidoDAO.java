@@ -31,7 +31,7 @@ public class ProductoVendidoDAO {
 			prepared.setInt(1, idVenta);
 			prepared.setString(2, productoVendido.getProducto().getCodProducto());
 			prepared.setInt(3, productoVendido.getCantidad());
-			prepared.setInt(4, productoVendido.getCantidad()*productoVendido.getProducto().getPrecio());
+			prepared.setInt(4, productoVendido.obtenerPrecioSubtotalConDescuentosAplicados());
 			prepared.executeUpdate();
 			return true;
 		} catch (SQLException e) {

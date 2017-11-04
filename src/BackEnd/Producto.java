@@ -1,7 +1,9 @@
 package BackEnd;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import BackEndDAO.DescuentoDAO;
 import BackEndDAO.ProductoDAO;
 
 public class Producto {
@@ -12,20 +14,17 @@ public class Producto {
 	ArrayList <Descuento> descuentos = new ArrayList <Descuento>();
 
 	public Producto (String codigo, String nombre, int precio){
-		this.codigoBarras = codigo;
-		this.nombre = nombre;
-		this.precio = precio;
+			this.codigoBarras = codigo;
+			this.nombre = nombre;
+			this.precio = precio;
 	}
 	
 	public Producto (String codigoBarras) throws Exception {
-		//Query para obtener el producto mediante un procedimiento almacenado
 		ProductoDAO dao = new ProductoDAO();
 		Producto nuevo = dao.obtenerProductoDesdeCodigo(codigoBarras);
 		this.codigoBarras = nuevo.getCodProducto();
 		this.nombre = nuevo.getNombre();
 		this.precio = nuevo.getPrecio();
-		/*this.nombre = "Producto_"+codigoBarras;
-		this.precio = 2;*/
 	}
 	
 	public String getCodProducto() {
@@ -38,6 +37,40 @@ public class Producto {
 	
 	public int getPrecio() {
 		return this.precio;
+	}
+
+	public boolean registrar() {
+		// TODO Auto-generated method stub
+		ProductoDAO dao = new ProductoDAO();
+		try {
+			dao.insertar(this);
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean eliminar() {
+		ProductoDAO dao = new ProductoDAO();
+		try {
+			dao.quitar(this);
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public ArrayList<Descuento> obtenerDescuentos() {
+		ProductoDAO dao = new ProductoDAO();
+		try {
+			return dao.obtenerDescuentos(this);
+		} catch (SQLException e) {
+			return null;
+		}
 	}
 	
 	

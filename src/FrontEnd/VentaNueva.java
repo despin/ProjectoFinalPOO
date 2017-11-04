@@ -4,46 +4,21 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
-import java.awt.GridLayout;
-
-import javax.jws.WebParam.Mode;
 import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.FlowLayout;
 import javax.swing.JButton;
-import javax.swing.JToolBar;
 import java.awt.event.ActionListener;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
 import java.awt.event.ActionEvent;
-
-import com.mysql.fabric.xmlrpc.base.Array;
-import com.sun.media.sound.ModelOscillator;
 
 import BackEnd.Empleado;
 import BackEnd.Producto;
 import BackEnd.ProductoVendido;
 import BackEnd.Venta;
-import BackEndDAO.VentaDAO;
-
-import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -51,9 +26,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 public class VentaNueva extends JPanel {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private JTextField textFieldCodProducto;
@@ -80,8 +52,13 @@ public class VentaNueva extends JPanel {
 		buttonAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//marco.setContentPane(new CierreVenta(marco, modelo));
+				ventaActual.aplicarDescuentos();
 				if(ventaActual.registrar()) {
-					marco.setContentPane(new CierreVenta(marco,empleado,ventaActual.getTotalAbonar()));
+					marco.setContentPane(new CierreVenta(
+							marco,
+							empleado,
+							ventaActual.getTotalAbonar(),
+							ventaActual.getTotalAbonarConDescuentos()));
 					marco.validate();
 				} else {
 					JOptionPane.showMessageDialog(null, "ERROR AL REGISTAR LA VENTA. Revise los datos");
@@ -157,7 +134,6 @@ public class VentaNueva extends JPanel {
 				try {
 					productoNuevo = new Producto(textFieldCodProducto.getText());
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				if (productoNuevo.getNombre()!=null) {

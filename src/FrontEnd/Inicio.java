@@ -58,7 +58,6 @@ public class Inicio extends JPanel{
 					e.printStackTrace();
 				}
 				if (nuevoEmpleado.getNombre()!=null){
-					System.out.println(nuevoEmpleado.getNombre());
 					marco.setContentPane(new VentaNueva(marco, nuevoEmpleado));
 					marco.validate();
 				} else {

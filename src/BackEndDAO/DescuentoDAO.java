@@ -2,6 +2,7 @@ package BackEndDAO;
 
 import BackEnd.Descuento;
 import BackEnd.Empleado;
+import BackEnd.Producto;
 import BackEndDAO.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +23,7 @@ public class DescuentoDAO {
 
     }
 
-	public Descuento obtenerDescuentoDesdeCodigo(String clave) throws SQLException {
+	public Descuento obtenerDescuentoDesdeNombre(String palabraClave) throws SQLException {
 				//obtener datos desde un query
 				conexion = Conexion.conectar();
 				// se alista a la conexion para recibir consultas
@@ -31,69 +32,71 @@ public class DescuentoDAO {
 				//statement 
 				//query
 				prepared = conexion.prepareStatement("Select * From Descuento where nombre = ? ");
-				prepared.setString(1, clave);
+				prepared.setString(1, palabraClave);
 				
 				resultSet = prepared.executeQuery();
 				
-				String nombre = null;
-				int porcentaje = 0;
+				Descuento resultado = null;
 				
 				while (resultSet.next()) {
-					nombre = resultSet.getString("nombre");
-					porcentaje = resultSet.getInt("porcentaje");
-					obtenerCodigosDeProductosDesdeDescuento(nombre);
+					System.out.println("nombre_descuento: "+resultSet.getString("nombre"));
+					resultado = new Descuento (resultSet.getInt("id_descuento"),resultSet.getString("nombre"), resultSet.getInt("porcentaje"));
 				}
+				ArrayList<Producto> productosAAgregar = new ArrayList<Producto>();
+				productosAAgregar = obtenerProductosDesdeDescuento(resultado);
+				resultado.setProductos(productosAAgregar);
 				
-				return new Descuento (clave, porcentaje);
+				return resultado;
 	}
 	
-	public ArrayList<String> obtenerCodigosDeProductosDesdeDescuento(String clave) throws SQLException {
+	public Descuento obtenerDescuentoDesdeCodigo(int codDescuento) throws SQLException {
+		//obtener datos desde un query
+		conexion = Conexion.conectar();
+		// se alista a la conexion para recibir consultas
+		declaracion = conexion.createStatement();
+		
+		//statement 
+		//query
+		prepared = conexion.prepareStatement("Select * From Descuento where id_descuento = ? ");
+		prepared.setInt(1, codDescuento);
+		
+		resultSet = prepared.executeQuery();
+		
+		Descuento resultado = null;
+		
+		while (resultSet.next()) {
+			resultado = new Descuento (resultSet.getInt("id_descuento"),resultSet.getString("nombre"), resultSet.getInt("porcentaje"));
+		}
+		ArrayList<Producto> productosAAgregar = new ArrayList<Producto>();
+		productosAAgregar = obtenerProductosDesdeDescuento(resultado);
+		resultado.setProductos(productosAAgregar);
+		
+		return resultado;
+}
+	
+	public ArrayList<Producto> obtenerProductosDesdeDescuento(Descuento descuento) throws SQLException {
 		ResultSet rsInterno = null;
-		ArrayList<String> resultado = new ArrayList<String>();
+		ArrayList<Producto> resultado = new ArrayList<Producto>();
 		conexion = Conexion.conectar();
 		// se alista a la conexion para recibir consultas
 		declaracion = conexion.createStatement();
 		//statement 
 		
-		prepared = conexion.prepareStatement("Select * From Descuento where nombre = ? ");
-		prepared.setString(1, clave);
-		
-		rsInterno = prepared.executeQuery();
-		
-		int codigoReferencia = 0;
-		
-		while (rsInterno.next()) {
-			codigoReferencia = rsInterno.getInt("id_descuento");
-		}
-		
 		prepared = conexion.prepareStatement("Select * From ProductosConDescuento where id_descuento = ?");
-		prepared.setInt(1, codigoReferencia);
+		prepared.setInt(1, descuento.getID());
 		rsInterno = prepared.executeQuery();
 		
 		
 		while (rsInterno.next()) {
-			resultado.add(rsInterno.getString("id_producto"));
+			try {
+				resultado.add(new Producto(rsInterno.getString("id_producto")));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		return resultado;
-	}
-	
-	public ArrayList<Descuento> obtenerDescuentosDesdeProducto(String codigoProducto) throws SQLException {
-		ArrayList<Descuento> descuentos = new ArrayList<Descuento>();
-		conexion = Conexion.conectar();
-		// se alista a la conexion para recibir consultas
-		declaracion = conexion.createStatement();
-		//statement 
-		
-		prepared = conexion.prepareStatement("Select * From ProductosConDescuento where id_producto = ? ");
-		prepared.setString(1, codigoProducto);
-		
-		ResultSet rsInterno = prepared.executeQuery();
-		
-		while (rsInterno.next()) {
-			descuentos.add(new Descuento(rsInterno.getString("id_descuento")));
-		}
-		return descuentos;
 	}
 	
 	public ArrayList<Descuento> obtenerTodosLosDescuentos() throws SQLException {
@@ -108,7 +111,12 @@ public class DescuentoDAO {
 		rsInterno = prepared.executeQuery();
 		
 		while (rsInterno.next()) {
-			resultado.add(new Descuento(rsInterno.getString("nombre")));
+			Descuento d = new Descuento(
+				rsInterno.getInt("id_Descuento"),
+				rsInterno.getString("nombre"),
+				rsInterno.getInt("porcentaje")
+			);
+			resultado.add(d);
 		}
 		
 		return resultado;
