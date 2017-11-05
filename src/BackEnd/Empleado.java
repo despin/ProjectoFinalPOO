@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import BackEndDAO.EmpleadoDAO;
-import BackEndDAO.ProductoDAO;
 public class Empleado {
 
 	String codigoDeEmpleado;

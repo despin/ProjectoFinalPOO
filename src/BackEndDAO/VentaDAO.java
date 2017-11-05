@@ -4,12 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
-
-import BackEnd.Descuento;
 import BackEnd.Empleado;
 import BackEnd.Venta;
 
@@ -22,7 +18,6 @@ public class VentaDAO {
 		// TODO Auto-generated method stub
 		ArrayList<Venta> ventas = new ArrayList<Venta>();
 		Connection conexion = Conexion.conectar();
-		Statement declaracion = conexion.createStatement();
 		PreparedStatement prepared = conexion.prepareStatement("Select * From Venta");
 		ResultSet rsInterno = prepared.executeQuery();
 		

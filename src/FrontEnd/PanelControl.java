@@ -1,7 +1,5 @@
 package FrontEnd;
 
-import java.awt.Container;
-
 import java.util.Date;
 
 import javax.swing.JFrame;
@@ -36,7 +34,6 @@ import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 
 public class PanelControl extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -211,7 +208,6 @@ public class PanelControl extends JPanel {
 				});
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -237,7 +233,6 @@ public class PanelControl extends JPanel {
 		try {
 			productos = productoDao.obtenerTodosLosProductos();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		for (Producto p : productos) {

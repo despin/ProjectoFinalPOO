@@ -1,9 +1,5 @@
 package BackEnd;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import BackEndDAO.DescuentoDAO;
 import BackEndDAO.ProductoVendidoDAO;
 
 public class ProductoVendido {
