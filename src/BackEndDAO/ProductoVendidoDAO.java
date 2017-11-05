@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import BackEnd.Producto;
 import BackEnd.ProductoVendido;
 
 public class ProductoVendidoDAO {
@@ -27,6 +28,7 @@ public class ProductoVendidoDAO {
 	public boolean insertar(ProductoVendido productoVendido, int idVenta) {
 		try {
 			Connection conexion = Conexion.conectar();
+			conexion.createStatement();
 			PreparedStatement prepared = conexion.prepareStatement("INSERT INTO ItemProducto VALUES ( default , ?, ?, ?, ? );");
 			prepared.setInt(1, idVenta);
 			prepared.setString(2, productoVendido.getProducto().getCodProducto());

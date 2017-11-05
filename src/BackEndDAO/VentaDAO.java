@@ -18,6 +18,7 @@ public class VentaDAO {
 		// TODO Auto-generated method stub
 		ArrayList<Venta> ventas = new ArrayList<Venta>();
 		Connection conexion = Conexion.conectar();
+		conexion.createStatement();
 		PreparedStatement prepared = conexion.prepareStatement("Select * From Venta");
 		ResultSet rsInterno = prepared.executeQuery();
 		
@@ -38,9 +39,9 @@ public class VentaDAO {
 		// TODO Auto-generated method stub
 		long tiempo = venta.getFecha().getTime();
 		java.sql.Timestamp timestamp = new Timestamp(tiempo);
-		ArrayList<Venta> ventas = new ArrayList<Venta>();
+		new ArrayList<Venta>();
 		Connection conexion = Conexion.conectar();
-		Statement declaracion = conexion.createStatement();
+		conexion.createStatement();
 		PreparedStatement prepared = conexion.prepareStatement("INSERT INTO Venta VALUES ( default , ? , ?, ? );");
 		prepared.setString(1, venta.getEmpleado().getCodigo());
 		prepared.setTimestamp(2, timestamp);
