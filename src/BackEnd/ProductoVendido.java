@@ -12,6 +12,12 @@ public class ProductoVendido {
 		this.producto = producto;
 		this.cantidad = cantidad;
 	}
+	
+	public ProductoVendido(Producto producto, int cantidad, int precioConDescuentoAplicados){
+		this.producto = producto;
+		this.cantidad = cantidad;
+		this.precioConDescuentosAplicados = precioConDescuentoAplicados;
+	}
 
 	public int obtenerPrecioSubtotal() {
 		return this.producto.precio * this.cantidad;
