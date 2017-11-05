@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
+import BackEndDAO.ProductoVendidoDAO;
 import BackEndDAO.VentaDAO;
 
 public class Venta {
@@ -91,5 +92,16 @@ public class Venta {
 			totalAbonar = totalAbonar + pv.obtenerPrecioSubtotalConDescuentosAplicados();
 		}
 		return totalAbonar;
+	}
+
+	public ArrayList<ProductoVendido> obtenerProductosVendidos() {
+		ProductoVendidoDAO dao = new ProductoVendidoDAO();
+		try {
+			return dao.obtenerProductosPorVenta(this.ID);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
