@@ -41,7 +41,6 @@ public class PanelControl extends JPanel {
 	private JTable tableEmpleados;
 	private JTextField textField;
 	private JTable tableVentas;
-	@SuppressWarnings("serial")
 	PanelControl(JFrame marco,Empleado empleado) {
 		setLayout(new BorderLayout(0, 0));
 		
@@ -97,6 +96,9 @@ public class PanelControl extends JPanel {
 		JMenuItem menuItem_5 = new JMenuItem("Empleado");
 		mnModificar.add(menuItem_5);
 		
+		JMenuItem mntmVerProductos = new JMenuItem("Ver productos");
+		panel.add(mntmVerProductos);
+		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		add(tabbedPane, BorderLayout.CENTER);
 		
@@ -112,7 +114,7 @@ public class PanelControl extends JPanel {
 		panel_3.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.X_AXIS));
 		
-		JComboBox comboBox_1 = new JComboBox();
+		JComboBox<String> comboBox_1 = new JComboBox<String>();
 		panel_2.add(comboBox_1);
 		
 		textField = new JTextField();
@@ -148,6 +150,24 @@ public class PanelControl extends JPanel {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+
+		mntmVerProductos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					marco.setContentPane(new VisorDeProductos(
+							marco, 
+							empleado,
+							ventaDao.obtenerTodosLasVentas().get(tableVentas.getSelectedRow())
+					));
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				marco.validate();
+			}
+		});
+		
 		
 		JScrollPane scrollPaneDescuento = new JScrollPane();
 		tabbedPane.addTab("Descuentos", null, scrollPaneDescuento, null);
@@ -272,7 +292,7 @@ public class PanelControl extends JPanel {
 		    }
 		});
 		// Quitar
-		menuItem.addActionListener(new ActionListener() {
+		menuItem_1.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent ev) {
 		    	for (int i : tableProductos.getSelectedRows()) {
 		    		Producto aQuitar = new Producto(
@@ -295,7 +315,7 @@ public class PanelControl extends JPanel {
 		    			(String) modeloProducto.getValueAt(tableProductos.getSelectedRow() , 1), 
 						(int) modeloProducto.getValueAt(tableProductos.getSelectedRow() , 2)
 		    	);
-				marco.setContentPane(new VentanaAñadirProducto(marco, empleado, aModificar));
+				marco.setContentPane(new VentanaModificarProducto(marco, empleado, aModificar));
 				marco.validate();
 			}
 		});
@@ -334,7 +354,36 @@ public class PanelControl extends JPanel {
 						(String) modeloEmpleado.getValueAt(tableEmpleados.getSelectedRow() , 2),
 						(Date) modeloEmpleado.getValueAt(tableEmpleados.getSelectedRow(), 3)
 					);
-				marco.setContentPane(new VentanaAñadirEmpleado(marco, empleado, aModificar));
+				marco.setContentPane(new VentanaModificarEmpleado(marco, empleado, aModificar));
+				marco.validate();
+				
+			}
+		});
+		// SECCION DESCUENTOS
+		// Agregar
+		menuItemDescuento.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent ev) {
+		    	marco.setContentPane(new VentanaAñadirDescuesto(marco, empleado));
+		    	marco.validate();
+		    }
+		});
+		// Quitar
+		menuItem_2.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent ev) {
+		    	for (int i : tableEmpleados.getSelectedRows()) {
+		    		Descuento aQuitar = new Descuento((String) comboBox.getSelectedItem());
+			    	if (JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar \""+aQuitar.getPalabraClave()+"\"?") == 0) {
+			    		aQuitar.eliminar();
+			    	};
+			    	modeloEmpleado.removeRow(i);
+		    	}
+		    }
+		});
+		// Modificar
+		menuItem_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Descuento aModificar = new Descuento((String) comboBox.getSelectedItem());
+				marco.setContentPane(new VentanaModificarDescuesto(marco, empleado, aModificar));
 				marco.validate();
 				
 			}

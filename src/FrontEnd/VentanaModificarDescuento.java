@@ -1,14 +1,13 @@
 package FrontEnd;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import BackEnd.Descuento;
 import BackEnd.Empleado;
 
-public class VentanaAñadirDescuesto extends JPanel {
+public class VentanaModificarDescuento {
 
-	public VentanaAñadirDescuesto(JFrame marco, Empleado empleado) {
+	public VentanaModificarDescuento(JFrame marco, Empleado empleado, Descuento aModificar) {
 		// TODO Auto-generated constructor stub
 	}
 
