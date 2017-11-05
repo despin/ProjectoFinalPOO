@@ -1,35 +1,32 @@
 package FrontEnd;
 
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import java.awt.Container;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
-import java.awt.Font;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 import BackEnd.Empleado;
 import BackEnd.Producto;
 
-import javax.swing.JTextField;
-import javax.swing.JSpinner;
-import javax.swing.JButton;
-import javax.swing.JFrame;
+public class VentanaModificarProducto extends JPanel {
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.SpinnerNumberModel;
-
-public class VentanaAñadirProducto extends JPanel {
-	protected static final Container PanelControl = null;
-	private JTextField textFieldCodigo;
-	private JTextField textFieldNombre;
-	public VentanaAñadirProducto(JFrame marco, Empleado empleado) {
+	
+	public VentanaModificarProducto(JFrame marco, Empleado empleado, Producto producto) {
 		setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblAadirNuevoProducto = new JLabel("Añadir nuevo Producto");
+		Producto productoViejo = producto;
+		
+		JLabel lblAadirNuevoProducto = new JLabel("Editar Producto existente");
 		lblAadirNuevoProducto.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAadirNuevoProducto.setFont(new Font("Dialog", Font.BOLD, 17));
 		add(lblAadirNuevoProducto, BorderLayout.NORTH);
@@ -43,20 +40,24 @@ public class VentanaAñadirProducto extends JPanel {
 		lblCodigoDeBarras.setBounds(37, 24, 164, 15);
 		panel.add(lblCodigoDeBarras);
 		
-		textFieldCodigo = new JTextField();
+		JTextField textFieldCodigo = new JTextField();
 		textFieldCodigo.setBounds(206, 22, 142, 19);
 		panel.add(textFieldCodigo);
 		textFieldCodigo.setColumns(10);
+		
+		textFieldCodigo.setText(producto.getCodProducto());
+		textFieldCodigo.setEditable(false);
 		
 		JLabel lblNewLabel = new JLabel("Nombre");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel.setBounds(131, 55, 70, 15);
 		panel.add(lblNewLabel);
 		
-		textFieldNombre = new JTextField();
+		JTextField textFieldNombre = new JTextField();
 		textFieldNombre.setBounds(206, 53, 142, 19);
 		panel.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
+		textFieldNombre.setText(producto.getNombre());
 		
 		JLabel lblPrecio = new JLabel("Precio");
 		lblPrecio.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -68,10 +69,14 @@ public class VentanaAñadirProducto extends JPanel {
 		spinnerPrecio.setBounds(206, 80, 142, 20);
 		panel.add(spinnerPrecio);
 		
+		spinnerPrecio.setValue(producto.getPrecio());
+		
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Producto nuevo = new Producto(textFieldCodigo.getText(), textFieldNombre.getText(),(Integer) spinnerPrecio.getValue());
+				productoViejo.eliminar();
+				
+				Producto nuevo = new Producto(producto.getCodProducto(), textFieldNombre.getText(),(Integer) spinnerPrecio.getValue());
 				if (nuevo.getCodProducto() != "Error") {
 					if (nuevo.registrar()) {
 						marco.setContentPane(new PanelControl(marco,empleado));
@@ -88,6 +93,4 @@ public class VentanaAñadirProducto extends JPanel {
 		panel.add(btnAgregar);
 		
 	}
-	
-	
 }
