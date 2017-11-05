@@ -17,7 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 
 public class CierreVenta extends JPanel {
-	public CierreVenta(JFrame marco, Empleado empleado, Integer subtotal, Integer total) {
+	public CierreVenta(JFrame marco, Empleado empleado, int subtotal, int total) {
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
@@ -45,7 +45,7 @@ public class CierreVenta extends JPanel {
 		btnVolver.setBounds(38, 166, 117, 25);
 		panel_1.add(btnVolver);
 		
-		JLabel lblTotalX = new JLabel("Total: "+total.toString());
+		JLabel lblTotalX = new JLabel("Total: "+total);
 		lblTotalX.setBounds(38, 139, 123, 15);
 		panel_1.add(lblTotalX);
 		
@@ -64,7 +64,7 @@ public class CierreVenta extends JPanel {
 		lblDescontado.setBounds(85, 112, 70, 15);
 		panel_1.add(lblDescontado);
 		
-		JLabel lblSubtotal = new JLabel(subtotal.toString());
+		JLabel lblSubtotal = new JLabel(""+subtotal);
 		lblSubtotal.setBounds(85, 89, 70, 15);
 		panel_1.add(lblSubtotal);
 		
