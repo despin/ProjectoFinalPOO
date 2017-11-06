@@ -96,8 +96,26 @@ public class VentaNueva extends JPanel {
 		JMenu mnArchivo = new JMenu("Archivo");
 		menuBar.add(mnArchivo);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Empleado "+empleado.getApellido()+", "+empleado.getNombre());
-		menuBar.add(mntmNewMenuItem);
+		JMenuItem mntmSalir = new JMenuItem("Salir");
+		mnArchivo.add(mntmSalir);
+		
+		mntmSalir.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				marco.dispose();
+			}
+		});
+		
+		JMenu mnAyuda = new JMenu("Ayuda");
+		menuBar.add(mnAyuda);
+		
+		JMenuItem mntmAcercaDe = new JMenuItem("Acerca de");
+		mnAyuda.add(mntmAcercaDe);
+		
+		JLabel lblNewLabel_1 = new JLabel("Empleado "+empleado.getApellido()+", "+empleado.getNombre()+"  ");
+		menuBar.add(lblNewLabel_1);
+		
 		
 		JPanel panel_1 = new JPanel();
 		panelTop.add(panel_1, BorderLayout.SOUTH);

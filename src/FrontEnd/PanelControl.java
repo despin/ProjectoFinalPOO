@@ -103,8 +103,50 @@ public class PanelControl extends JPanel {
 		JMenuItem menuItem_5 = new JMenuItem("Empleado");
 		mnModificar.add(menuItem_5);
 		
+		JMenu mnAyuda = new JMenu("Ayuda");
+		menuBar.add(mnAyuda);
+		
+		JMenuItem mntmAcercaDe = new JMenuItem("Acerca de");
+		mnAyuda.add(mntmAcercaDe);
+		
+		mntmAcercaDe.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null, "Market System\n"+
+													"Trabajo Practico Final 2017\n"+
+													"Laboratorio Programacion Orientado a Objetos\n"+
+													"\n"+
+													"Calogero, Pedro\n"+
+													"Toscano, Fabricio\n"+
+													"Franco Varela");
+			}
+		});
+		
 		JMenuItem mntmVerProductos = new JMenuItem("Ver productos");
-		panel.add(mntmVerProductos);
+		menuBar.add(mntmVerProductos);
+		
+		JLabel lblEmpleado = new JLabel("Empleado "+empleado.getApellido()+", "+empleado.getNombre()+"  ");
+		menuBar.add(lblEmpleado);
+	
+		VentaDAO ventaDao = new VentaDAO();
+		
+				mntmVerProductos.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+							marco.setContentPane(new VisorDeProductos(
+									marco, 
+									empleado,
+									ventaDao.obtenerTodosLasVentas().get(tableVentas.getSelectedRow())
+							));
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+						marco.validate();
+					}
+				});
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		add(tabbedPane, BorderLayout.CENTER);
@@ -143,9 +185,8 @@ public class PanelControl extends JPanel {
 		
 		tableVentas = new JTable(modeloVentas);
 		scrollPaneVenta.setViewportView(tableVentas);
-		tableVentas.setEnabled(false);
+		tableVentas.setAutoCreateRowSorter(true);
 		
-		VentaDAO ventaDao = new VentaDAO();
 		
 		try {
 			for (Venta v : ventaDao.obtenerTodosLasVentas()) {
@@ -161,23 +202,6 @@ public class PanelControl extends JPanel {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-
-		mntmVerProductos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					marco.setContentPane(new VisorDeProductos(
-							marco, 
-							empleado,
-							ventaDao.obtenerTodosLasVentas().get(tableVentas.getSelectedRow())
-					));
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-				marco.validate();
-			}
-		});
 		
 		
 		JScrollPane scrollPaneDescuento = new JScrollPane();
