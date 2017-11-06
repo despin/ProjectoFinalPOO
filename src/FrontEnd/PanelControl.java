@@ -142,7 +142,8 @@ public class PanelControl extends JPanel {
 				modeloVentas.addRow(new Object[] {
 						v.getID(),
 						v.getEmpleado().getApellido()+", "+v.getEmpleado().getNombre(),
-						v.getFecha()
+						v.getFecha(),
+						v.getPrecioTotal()
 				});
 			}
 		} catch (SQLException e1) {
@@ -363,27 +364,25 @@ public class PanelControl extends JPanel {
 		// Agregar
 		menuItemDescuento.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent ev) {
-		    	marco.setContentPane(new VentanaAñadirDescuesto(marco, empleado));
+		    	marco.setContentPane(new VentanaAñadirDescuento(marco, empleado));
 		    	marco.validate();
 		    }
 		});
 		// Quitar
-		menuItem_2.addActionListener(new ActionListener() {
+		menuItem_1.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent ev) {
-		    	for (int i : tableEmpleados.getSelectedRows()) {
 		    		Descuento aQuitar = new Descuento((String) comboBox.getSelectedItem());
 			    	if (JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar \""+aQuitar.getPalabraClave()+"\"?") == 0) {
 			    		aQuitar.eliminar();
 			    	};
-			    	modeloEmpleado.removeRow(i);
-		    	}
+			    	comboBox.removeItemAt(comboBox.getSelectedIndex());
 		    }
 		});
 		// Modificar
 		menuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Descuento aModificar = new Descuento((String) comboBox.getSelectedItem());
-				marco.setContentPane(new VentanaModificarDescuesto(marco, empleado, aModificar));
+				marco.setContentPane(new VentanaModificarDescuento(marco, empleado, aModificar));
 				marco.validate();
 				
 			}
