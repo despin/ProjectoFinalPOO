@@ -89,7 +89,9 @@ public class ProductoDAO {
 		
 		prepared = conexion.prepareStatement("DELETE FROM Producto WHERE codigoBarras = ?");
 		prepared.setString(1, producto.getCodProducto());
-        
+		prepared.executeUpdate();
+		prepared = conexion.prepareStatement("DELETE FROM ProductosConDescuento WHERE id_producto = ?");
+		prepared.setString(1, producto.getCodProducto());
 		prepared.executeUpdate();
 	}
 

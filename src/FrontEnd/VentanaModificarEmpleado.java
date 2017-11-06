@@ -89,7 +89,7 @@ public class VentanaModificarEmpleado extends JPanel {
 		lblFecha.setBounds(59, 113, 142, 15);
 		panel.add(lblFecha);
 		
-		JButton btnAgregar = new JButton("Agregar");
+		JButton btnAgregar = new JButton("Modificar");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				empleadoAnterior.eliminar();

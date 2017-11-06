@@ -9,7 +9,7 @@ public class Descuento {
 	int ID;
 	String palabraClave;
 	int porcentaje;
-	ArrayList<Producto> productosAfectados;
+	ArrayList<Producto> productosAfectados = new ArrayList<Producto>();
 	
 	public Descuento(int codDescuento) throws SQLException {
 		DescuentoDAO dao = new DescuentoDAO();
@@ -32,7 +32,7 @@ public class Descuento {
 		this.porcentaje = porcentaje;
 	}
 	
-	public Descuento(int ID, String palabraClave, int porcentaje, ArrayList<Producto> productosAfectados){
+	public Descuento(String palabraClave, int porcentaje, ArrayList<Producto> productosAfectados){
 		this.ID = ID;
 		this.palabraClave = palabraClave;
 		this.porcentaje = porcentaje;
@@ -76,11 +76,38 @@ public class Descuento {
 	}
 
 	public void setProductos(ArrayList<Producto> productosAAgregar) {
-		// TODO Auto-generated method stub
 		this.productosAfectados = productosAAgregar;
 	}
+
+	public void eliminar() {
+		DescuentoDAO dao = new DescuentoDAO();
+		try {
+			dao.quitar(this);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
+	public void registrar() {
+		DescuentoDAO dao = new DescuentoDAO();
+		try {
+			dao.insertar(this);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void setID(int ID) {
+		this.ID = ID;
+	}
+
+	public void setPalabraClave(String text) {
+		this.palabraClave = text;
+	}
 	
-	
+	public void setPorcentaje(int porc) {
+		this.porcentaje = porc;
+	}
 	
 }

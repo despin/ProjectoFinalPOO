@@ -26,7 +26,8 @@ public class VentaDAO {
 			ventas.add(new Venta(
 					rsInterno.getInt("Id_Venta"),
 					new Empleado(rsInterno.getString("cajero")),
-					rsInterno.getTimestamp("fechaVenta")
+					rsInterno.getTimestamp("fechaVenta"),
+					rsInterno.getInt("precioTotal")
 			));
 		}
 
@@ -42,6 +43,7 @@ public class VentaDAO {
 		new ArrayList<Venta>();
 		Connection conexion = Conexion.conectar();
 		conexion.createStatement();
+		
 		PreparedStatement prepared = conexion.prepareStatement("INSERT INTO Venta VALUES ( default , ? , ?, ? );");
 		prepared.setString(1, venta.getEmpleado().getCodigo());
 		prepared.setTimestamp(2, timestamp);

@@ -33,7 +33,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.JLabel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import javax.swing.DefaultComboBoxModel;
 
 public class PanelControl extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -41,6 +45,9 @@ public class PanelControl extends JPanel {
 	private JTable tableEmpleados;
 	private JTextField textField;
 	private JTable tableVentas;
+	private JComboBox comboBox_1;
+	private TableRowSorter trsFiltro;
+	
 	PanelControl(JFrame marco,Empleado empleado) {
 		setLayout(new BorderLayout(0, 0));
 		
@@ -102,38 +109,41 @@ public class PanelControl extends JPanel {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		add(tabbedPane, BorderLayout.CENTER);
 		
-		JScrollPane scrollPaneVenta = new JScrollPane();
-		scrollPaneVenta.setEnabled(false);
-		tabbedPane.addTab("Ventas", null, scrollPaneVenta, null);
-		
-		JPanel panel_3 = new JPanel();
-		scrollPaneVenta.setViewportView(panel_3);
-		panel_3.setLayout(new BorderLayout(0, 0));
+		JPanel panel_4 = new JPanel();
+		tabbedPane.addTab("Ventas", null, panel_4, null);
+		panel_4.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_2 = new JPanel();
-		panel_3.add(panel_2, BorderLayout.NORTH);
+		panel_4.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.X_AXIS));
 		
 		JComboBox<String> comboBox_1 = new JComboBox<String>();
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Empleado", "Fecha y hora", "Monto"}));
 		panel_2.add(comboBox_1);
 		
 		textField = new JTextField();
 		panel_2.add(textField);
 		textField.setColumns(10);
 		
-		JButton btnNewButton = new JButton("New button");
-		panel_2.add(btnNewButton);
+		JButton btnFiltrar = new JButton("Filtrar");
+		panel_2.add(btnFiltrar);
+		
+		JScrollPane scrollPaneVenta = new JScrollPane();
+		panel_4.add(scrollPaneVenta, BorderLayout.CENTER);
+
 		
 		DefaultTableModel modeloVentas = new DefaultTableModel(
 				new Object[][] {},
 				new String[] {
 					"ID",
 					"Empleado Responsable",
-					"Fecha de realizacion"
+					"Fecha de realizacion",
+					"Monto"
 		});
 		
 		tableVentas = new JTable(modeloVentas);
-		panel_3.add(tableVentas, BorderLayout.CENTER);
+		scrollPaneVenta.setViewportView(tableVentas);
+		tableVentas.setEnabled(false);
 		
 		VentaDAO ventaDao = new VentaDAO();
 		
@@ -284,6 +294,22 @@ public class PanelControl extends JPanel {
 			}
 		});
 		
+		// SECCION VENTAS
+		
+		//Filtrar
+		
+		btnFiltrar.addActionListener(new ActionListener() {
+			//Funciona, pero busca los datos en toda la tabla, no deja seleccionar una fila a filtrar
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(modeloVentas);
+		       	tableVentas.setRowSorter(tr);
+		        tr.setRowFilter(RowFilter.regexFilter(textField.getText(),comboBox_1.getSelectedIndex()+1));
+			}
+		});
+		
+		
 		// SECCION PRODUCTOS
 		// Agregar
 		mntmProducto.addActionListener(new ActionListener() {
@@ -388,4 +414,18 @@ public class PanelControl extends JPanel {
 			}
 		});
 	}
+	
+	public void filtro() {
+        int columnaABuscar = 0;
+        if (comboBox_1.getSelectedItem() == "Codigo") {
+            columnaABuscar = 0;
+        }
+        if (comboBox_1.getSelectedItem().toString() == "Nombre") {
+            columnaABuscar = 1;
+        }
+        if (comboBox_1.getSelectedItem() == "DNI") {
+            columnaABuscar = 2;
+        }
+        trsFiltro.setRowFilter(RowFilter.regexFilter(textField.getText(), columnaABuscar));
+    }
 }

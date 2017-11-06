@@ -15,6 +15,7 @@ public class Venta {
 	Empleado cajeroResponsable;
 	Date fechaTransaccion;
 	ArrayList<ProductoVendido> productos = new ArrayList<ProductoVendido>();
+	int precioTotal;
 
 	
 	public Venta(Empleado empleado){
@@ -25,11 +26,11 @@ public class Venta {
 		this.fechaTransaccion = ahora;
 	}
 	
-	public Venta(int id, Empleado empleado, Date fecha){
-
+	public Venta(int id, Empleado empleado, Date fecha, int precio){
 		this.ID = id;
 		this.cajeroResponsable = empleado;
 		this.fechaTransaccion = fecha;
+		this.precioTotal = precio;
 	}
 
 	public boolean registrar() {
@@ -86,6 +87,10 @@ public class Venta {
 		return totalAbonar;
 	}
 
+	public int getPrecioTotal() {
+		return this.precioTotal;
+	}
+	
 	public int getTotalAbonarConDescuentos() {
 		int totalAbonar = 0;
 		for (ProductoVendido pv : productos) {
