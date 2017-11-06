@@ -10,7 +10,7 @@ public class Conexion {
 		
 		return DriverManager.getConnection(
 				"jdbc:mysql://localhost:3306/supermercado?"
-                        + "user=root&password=habo123456");
+                        + "user=root&password=admin");
 	}
 
 }
