@@ -38,16 +38,17 @@ public class Producto {
 		return this.precio;
 	}
 
-	public boolean registrar() {
+
+	//Establecer exceptciones
+
+	public void registrar() {
 		// TODO Auto-generated method stub
 		ProductoDAO dao = new ProductoDAO();
 		try {
 			dao.insertar(this);
-			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return false;
 		}
 	}
 	
