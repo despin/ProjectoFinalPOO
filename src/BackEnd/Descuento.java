@@ -33,7 +33,6 @@ public class Descuento {
 	}
 	
 	public Descuento(String palabraClave, int porcentaje, ArrayList<Producto> productosAfectados){
-		this.ID = ID;
 		this.palabraClave = palabraClave;
 		this.porcentaje = porcentaje;
 		this.productosAfectados = productosAfectados;
