@@ -4,9 +4,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import com.mysql.jdbc.CommunicationsException;
 
 import BackEnd.Empleado;
 
@@ -53,17 +56,21 @@ public class Inicio extends JPanel{
 				Empleado nuevoEmpleado = null;
 				try {
 					nuevoEmpleado = new Empleado(codEmpleado.getText());
+					if (nuevoEmpleado.getNombre()!=null){
+						marco.setContentPane(new VentaNueva(marco, nuevoEmpleado));
+						marco.validate();
+					} else {
+						JOptionPane.showMessageDialog(null, "ESE EMPLEADO NO EXISTE");
+						codEmpleado.setText("");
+					}
+				} catch (com.mysql.jdbc.exceptions.jdbc4.CommunicationsException e) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "ERROR Conexion rehusada");
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				if (nuevoEmpleado.getNombre()!=null){
-					marco.setContentPane(new VentaNueva(marco, nuevoEmpleado));
-					marco.validate();
-				} else {
-					JOptionPane.showMessageDialog(null, "ESE EMPLEADO NO EXISTE");
-					codEmpleado.setText("");
-				}
+				
 			}
 		});
 		btnVentaNueva.setMnemonic('v');
@@ -78,17 +85,24 @@ public class Inicio extends JPanel{
 				Empleado nuevoEmpleado = null;
 				try {
 					nuevoEmpleado = new Empleado(codEmpleado.getText());
+					if (nuevoEmpleado.getNombre()!=null){
+						marco.setContentPane(new PanelControl(marco, nuevoEmpleado));
+						marco.validate();
+					} else {
+						JOptionPane.showMessageDialog(null, "ESE EMPLEADO NO EXISTE");
+						codEmpleado.setText("");
+					}
+					
+				} catch (com.mysql.jdbc.exceptions.jdbc4.CommunicationsException e1) {
+					JOptionPane.showMessageDialog(null, "ERROR Conexion rehusada", "ERROR", ERROR, null);
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, "ERROR al conectar con la base de datos\nCompruebe los datos del archivo 'properties.json'");
+					e1.printStackTrace();
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				if (nuevoEmpleado.getNombre()!=null){
-					marco.setContentPane(new PanelControl(marco, nuevoEmpleado));
-					marco.validate();
-				} else {
-					JOptionPane.showMessageDialog(null, "ESE EMPLEADO NO EXISTE");
-					codEmpleado.setText("");
-				}
+				
 			}
 		});
 		btnPanelControl.setMnemonic('c');
