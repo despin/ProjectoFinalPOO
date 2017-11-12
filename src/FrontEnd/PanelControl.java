@@ -34,6 +34,8 @@ import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.JLabel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -187,23 +189,6 @@ public class PanelControl extends JPanel {
 		scrollPaneVenta.setViewportView(tableVentas);
 		tableVentas.setAutoCreateRowSorter(true);
 		
-		
-		try {
-			for (Venta v : ventaDao.obtenerTodosLasVentas()) {
-				modeloVentas.addRow(new Object[] {
-						v.getID(),
-						v.getEmpleado().getApellido()+", "+v.getEmpleado().getNombre(),
-						v.getFecha(),
-						v.getPrecioTotal()
-				});
-			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-		
-		
 		JScrollPane scrollPaneDescuento = new JScrollPane();
 		tabbedPane.addTab("Descuentos", null, scrollPaneDescuento, null);
 		
@@ -220,17 +205,6 @@ public class PanelControl extends JPanel {
 		DefaultListModel<String> listModel = new DefaultListModel<String>();
 		JList<String> list = new JList<>(listModel);
 		list.setBounds(197, 12, 233, 184);
-		
-		DescuentoDAO descuentoDao = new DescuentoDAO();
-		
-		try {
-			for (Descuento des : descuentoDao.obtenerTodosLosDescuentos()) {
-				comboBox.addItem(des.getPalabraClave());
-			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		comboBox.setSelectedIndex(0);
 		
 		panel_1.add(comboBox);
 		panel_1.add(list);
@@ -251,21 +225,6 @@ public class PanelControl extends JPanel {
 				}
 			);
 		
-		EmpleadoDAO empleadoDao = new EmpleadoDAO();
-		
-		try {
-			for (Empleado e : empleadoDao.obtenerTodosLosEmpleados()) {
-				modeloEmpleado.addRow(new Object[] {
-						e.getCodigo(),
-						e.getNombre(),
-						e.getApellido(),
-						e.getFechaDeIngreso()	
-				});
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
 		tableEmpleados = new JTable();
 		tableEmpleados.setModel(modeloEmpleado);
 		
@@ -282,21 +241,6 @@ public class PanelControl extends JPanel {
 					
 				}
 			);
-		
-		ProductoDAO productoDao = new ProductoDAO();
-		ArrayList<Producto> productos = new ArrayList<Producto>();
-		try {
-			productos = productoDao.obtenerTodosLosProductos();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		for (Producto p : productos) {
-			modeloProducto.addRow(new Object[] {
-					p.getCodProducto(),
-					p.getNombre(),
-					p.getPrecio()
-			});
-		}
 		
 		tableProductos = new JTable();
 		tableProductos.setModel(modeloProducto);
@@ -318,6 +262,86 @@ public class PanelControl extends JPanel {
 			}
 		});
 		
+		tabbedPane.setSelectedIndex(-1);
+		tabbedPane.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				// TODO Auto-generated method stub
+				switch (tabbedPane.getSelectedIndex()) {
+					case 0:
+						
+//		TABLA VENTAS						
+						modeloVentas.setRowCount(0);
+						try {
+							for (Venta v : ventaDao.obtenerTodosLasVentas()) {
+								modeloVentas.addRow(new Object[] {
+										v.getID(),
+										v.getEmpleado().getApellido()+", "+v.getEmpleado().getNombre(),
+										v.getFecha(),
+										v.getPrecioTotal()
+								});
+							}
+						} catch (SQLException e1) {
+							throw new RuntimeException("No se pudo obtener las ventas", e1);
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+						break;
+					
+					case 1:
+//		LISTA DESCUENTOS					
+						DescuentoDAO descuentoDao = new DescuentoDAO();
+						try {
+							for (Descuento des : descuentoDao.obtenerTodosLosDescuentos()) {
+								comboBox.addItem(des.getPalabraClave());
+							}
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
+						comboBox.setSelectedIndex(0);
+						
+						break;
+						
+					case 2:
+//		TABLA EMPLEADOS						
+						EmpleadoDAO empleadoDao = new EmpleadoDAO();
+						try {
+							for (Empleado e : empleadoDao.obtenerTodosLosEmpleados()) {
+								modeloEmpleado.addRow(new Object[] {
+										e.getCodigo(),
+										e.getNombre(),
+										e.getApellido(),
+										e.getFechaDeIngreso()	
+								});
+							}
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+						break;
+						
+					case 3:
+//		TABLA PRODUCTOS						
+						ProductoDAO productoDao = new ProductoDAO();
+						ArrayList<Producto> productos = new ArrayList<Producto>();
+						try {
+							productos = productoDao.obtenerTodosLosProductos();
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
+						for (Producto p : productos) {
+							modeloProducto.addRow(new Object[] {
+									p.getCodProducto(),
+									p.getNombre(),
+									p.getPrecio()
+							});
+						}
+						break;
+				}
+			}
+		});
+		
+		
 		// SECCION VENTAS
 		
 		//Filtrar
@@ -332,7 +356,6 @@ public class PanelControl extends JPanel {
 		        tr.setRowFilter(RowFilter.regexFilter(textField.getText(),comboBox_1.getSelectedIndex()+1));
 			}
 		});
-		
 		
 		// SECCION PRODUCTOS
 		// Agregar
@@ -440,14 +463,15 @@ public class PanelControl extends JPanel {
 	}
 	
 	public void filtro() {
+		//"", "", "Monto"
         int columnaABuscar = 0;
-        if (comboBox_1.getSelectedItem() == "Codigo") {
+        if (comboBox_1.getSelectedItem().toString() == "Empleado") {
             columnaABuscar = 0;
         }
-        if (comboBox_1.getSelectedItem().toString() == "Nombre") {
+        if (comboBox_1.getSelectedItem().toString() == "Fecha y hora") {
             columnaABuscar = 1;
         }
-        if (comboBox_1.getSelectedItem() == "DNI") {
+        if (comboBox_1.getSelectedItem().toString() == "Monto") {
             columnaABuscar = 2;
         }
         trsFiltro.setRowFilter(RowFilter.regexFilter(textField.getText(), columnaABuscar));
