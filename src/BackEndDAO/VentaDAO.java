@@ -6,10 +6,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+
+import com.mysql.jdbc.util.ResultSetUtil;
+
 import BackEnd.Empleado;
 import BackEnd.Venta;
 
-public class VentaDAO {
+public class VentaDAO  extends DAO {
+	
+	Connection conexion = null;
+	PreparedStatement prepared = null;
+	ResultSet rsInterno = null;
+	
 	public VentaDAO() {
 		
 	}
@@ -17,10 +25,10 @@ public class VentaDAO {
 	public ArrayList<Venta> obtenerTodosLasVentas() throws SQLException, Exception {
 		// TODO Auto-generated method stub
 		ArrayList<Venta> ventas = new ArrayList<Venta>();
-		Connection conexion = Conexion.conectar();
+		conexion = conectar();
 		conexion.createStatement();
-		PreparedStatement prepared = conexion.prepareStatement("Select * From Venta");
-		ResultSet rsInterno = prepared.executeQuery();
+		prepared = conexion.prepareStatement("Select * From Venta");
+		rsInterno = prepared.executeQuery();
 		
 		while (rsInterno.next()) {
 			ventas.add(new Venta(
@@ -31,6 +39,7 @@ public class VentaDAO {
 			));
 		}
 
+		close(conexion, prepared, rsInterno);
 		return ventas;
 	}
 
@@ -41,7 +50,7 @@ public class VentaDAO {
 		long tiempo = venta.getFecha().getTime();
 		java.sql.Timestamp timestamp = new Timestamp(tiempo);
 		new ArrayList<Venta>();
-		Connection conexion = Conexion.conectar();
+		Connection conexion = conectar();
 		conexion.createStatement();
 		
 		PreparedStatement prepared = conexion.prepareStatement("INSERT INTO Venta VALUES ( default , ? , ?, ? );");
@@ -59,6 +68,7 @@ public class VentaDAO {
 		while (rsInterno.next()) {
 			ID = rsInterno.getInt(1);
 		}
+		close(conexion, prepared, rsInterno);
 		return ID;
 	}
 }

@@ -1,21 +1,17 @@
 package BackEndDAO;
 
 import BackEnd.Descuento;
-import BackEnd.Empleado;
-import BackEnd.Producto;
-import BackEndDAO.Conexion;
-import java.sql.Connection;
+import BackEnd.Producto;import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 
-public class DescuentoDAO {
+import BackEndDAO.DAO;
+
+public class DescuentoDAO extends DAO {
 
 	private Connection conexion = null;
-    private Statement declaracion = null;
     private PreparedStatement prepared = null;
     private ResultSet resultSet = null;
 
@@ -25,12 +21,7 @@ public class DescuentoDAO {
 
 	public Descuento obtenerDescuentoDesdeNombre(String palabraClave) throws SQLException {
 		//obtener datos desde un query
-		conexion = Conexion.conectar();
-		// se alista a la conexion para recibir consultas
-		declaracion = conexion.createStatement();
-		
-		//statement 
-		//query
+		Connection conexion = conectar();
 		prepared = conexion.prepareStatement("Select * From Descuento where nombre = ? ");
 		prepared.setString(1, palabraClave);
 		
@@ -44,16 +35,15 @@ public class DescuentoDAO {
 		ArrayList<Producto> productosAAgregar = new ArrayList<Producto>();
 		productosAAgregar = obtenerProductosDesdeDescuento(resultado);
 		resultado.setProductos(productosAAgregar);
-		
+		close(conexion, prepared, resultSet);
 		return resultado;
 	}
-	
+
+
 	public Descuento obtenerDescuentoDesdeCodigo(int codDescuento) throws SQLException {
 		//obtener datos desde un query
-		conexion = Conexion.conectar();
+		conexion = conectar();
 		// se alista a la conexion para recibir consultas
-		declaracion = conexion.createStatement();
-		
 		//statement 
 		//query
 		prepared = conexion.prepareStatement("Select * From Descuento where id_descuento = ? ");
@@ -69,18 +59,15 @@ public class DescuentoDAO {
 		ArrayList<Producto> productosAAgregar = new ArrayList<Producto>();
 		productosAAgregar = obtenerProductosDesdeDescuento(resultado);
 		resultado.setProductos(productosAAgregar);
-		
+		close(conexion, prepared, resultSet);
 		return resultado;
 }
 	
 	public ArrayList<Producto> obtenerProductosDesdeDescuento(Descuento descuento) throws SQLException {
 		ResultSet rsInterno = null;
 		ArrayList<Producto> resultado = new ArrayList<Producto>();
-		conexion = Conexion.conectar();
-		// se alista a la conexion para recibir consultas
-		declaracion = conexion.createStatement();
-		//statement 
-		
+		conexion = conectar();
+
 		prepared = conexion.prepareStatement("Select * From ProductosConDescuento where id_descuento = ?");
 		prepared.setInt(1, descuento.getID());
 		rsInterno = prepared.executeQuery();
@@ -94,16 +81,15 @@ public class DescuentoDAO {
 				e.printStackTrace();
 			}
 		}
-		
+		close(conexion, prepared, resultSet);
 		return resultado;
 	}
 	
 	public ArrayList<Descuento> obtenerTodosLosDescuentos() throws SQLException {
 		ResultSet rsInterno = null;
 		ArrayList<Descuento> resultado = new ArrayList<Descuento>();
-		conexion = Conexion.conectar();
+		conexion = conectar();
 		// se alista a la conexion para recibir consultas
-		declaracion = conexion.createStatement();
 		//statement 
 		
 		prepared = conexion.prepareStatement("Select * From Descuento");
@@ -117,14 +103,13 @@ public class DescuentoDAO {
 			);
 			resultado.add(d);
 		}
-		
+		close(conexion, prepared, resultSet);
 		return resultado;
 		
 	}
 
 	public void quitar(Descuento descuento) throws SQLException {
-		conexion = Conexion.conectar();
-		declaracion = conexion.createStatement();
+		conexion = conectar();
 		prepared = conexion.prepareStatement("DELETE FROM Descuento WHERE id_descuento = ?");
 		prepared.setInt(1, descuento.getID());
 		prepared.executeUpdate();
@@ -134,8 +119,7 @@ public class DescuentoDAO {
 	}
 
 	public void insertar(Descuento descuento) throws SQLException {
-		conexion = Conexion.conectar();
-		declaracion = conexion.createStatement();
+		conexion = conectar();
 		prepared = conexion.prepareStatement("INSERT INTO Descuento VALUES ( default, ?, ?)");
 		prepared.setString(1, descuento.getPalabraClave());
 		prepared.setInt(2, descuento.getPorcentaje());
@@ -155,5 +139,7 @@ public class DescuentoDAO {
 			prepared.setString(1, p.getCodProducto());
 			prepared.executeUpdate();
 		}
+		close(conexion, prepared, resultSet);
 	}
+	
 }
