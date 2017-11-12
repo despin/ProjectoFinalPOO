@@ -2,19 +2,23 @@ package FrontEnd;
 
 import javax.swing.JPanel;
 
-import BackEnd.Empleado;
-import BackEnd.Venta;
+import BackEnd.Empleado;import javax.swing.JLabel;import java.awt.BorderLayout;
+import javax.swing.JMenuBar;import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import javax.swing.JMenuBar;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
+import BackEnd.Empleado;
 
 public class CierreVenta extends JPanel {
 	public CierreVenta(JFrame marco, Empleado empleado, int subtotal, int total) {
