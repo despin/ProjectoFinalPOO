@@ -10,6 +10,10 @@ import BackEnd.Descuento;
 import BackEnd.Producto;
 
 import BackEndDAO.DAO;
+import Excepciones.FormatoInvalidoException;
+import Excepciones.RegistroYaExisteException;
+import com.mysql.jdbc.MysqlDataTruncation;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 public class ProductoDAO extends DAO {
 	
@@ -69,7 +73,7 @@ public class ProductoDAO extends DAO {
 		return lista;
 	}
 
-	public void insertar(Producto producto) throws SQLException {
+	public void insertar(Producto producto) throws SQLException, FormatoInvalidoException, RegistroYaExisteException{
 		// TODO Auto-generated method stub
 		conexion = conectar();
 		
@@ -77,8 +81,17 @@ public class ProductoDAO extends DAO {
 		prepared.setString(1, producto.getCodProducto());
 		prepared.setString(2, producto.getNombre());
 		prepared.setInt(3, producto.getPrecio());
-        
-		prepared.executeUpdate();
+        try {
+			prepared.executeUpdate();
+		} catch(MySQLIntegrityConstraintViolationException exception) {
+			exception.printStackTrace();
+			throw new RegistroYaExisteException("Ya existe un registro con la clave: "+producto.getCodProducto());
+		} catch(MysqlDataTruncation e) {
+			e.printStackTrace();
+			throw new FormatoInvalidoException("El campo N°"+e.getIndex()+" es muy largo");
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
 		close(conexion, prepared, resultSet);
 	}
 	

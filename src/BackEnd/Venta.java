@@ -77,6 +77,7 @@ public class Venta {
 		for (ProductoVendido pV : productos) {
 			pV.aplicarDescuentos();
 		}
+		
 	}
 
 	public int getTotalAbonar() {

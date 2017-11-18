@@ -98,6 +98,17 @@ public class VentaNueva extends JPanel {
 		
 		JMenuItem mntmSalir = new JMenuItem("Salir");
 		mnArchivo.add(mntmSalir);
+
+		JMenuItem mntmAtras = new JMenuItem("Atras");
+		mnArchivo.add(mntmAtras);
+
+		mntmAtras.addActionListener(new ActionListener(){
+		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				marco.setContentPane(new Inicio(marco));
+			}
+		});
 		
 		mntmSalir.addActionListener(new ActionListener() {
 			
@@ -120,10 +131,10 @@ public class VentaNueva extends JPanel {
 		JPanel panel_1 = new JPanel();
 		panelTop.add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
-		
+
 		JButton btnAgregar = new JButton("Agregar");
 		panel_1.add(btnAgregar);
-		
+
 		textFieldCodProducto = new JTextField();
 		panel_1.add(textFieldCodProducto);
 		textFieldCodProducto.setColumns(6);

@@ -94,11 +94,12 @@ public class VentanaModificarEmpleado extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				empleadoAnterior.eliminar();
 				Empleado nuevo = new Empleado(empleadoAnterior.getCodigo(), textFieldNombre.getText(),textFieldApellido.getText(), ahora);
-				if (nuevo.registrar()) {
+				try {
+					nuevo.registrar();
 					marco.setContentPane(new PanelControl(marco,empleadoEnSesion));
 					marco.validate();
-				} else {
-					JOptionPane.showMessageDialog(null, "ERROR AL REGISTRAR");
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
 				}	
 			}
 		});

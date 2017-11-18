@@ -7,10 +7,12 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import com.mysql.jdbc.MysqlDataTruncation;
 import com.mysql.jdbc.util.ResultSetUtil;
 
 import BackEnd.Empleado;
 import BackEnd.Venta;
+import Excepciones.FormatoInvalidoException;
 
 public class VentaDAO  extends DAO {
 	
@@ -46,24 +48,21 @@ public class VentaDAO  extends DAO {
 //Devuelve un Date de SQL
 	
 	public int insertar(Venta venta, int totalAbonar) throws SQLException {
-		// TODO Auto-generated method stub
+		int ID = 0;
 		long tiempo = venta.getFecha().getTime();
 		java.sql.Timestamp timestamp = new Timestamp(tiempo);
 		new ArrayList<Venta>();
-		Connection conexion = conectar();
+		conexion = conectar();
 		conexion.createStatement();
-		
-		PreparedStatement prepared = conexion.prepareStatement("INSERT INTO Venta VALUES ( default , ? , ?, ? );");
+		prepared = conexion.prepareStatement("INSERT INTO Venta VALUES ( default , ? , ?, ? );");
 		prepared.setString(1, venta.getEmpleado().getCodigo());
 		prepared.setTimestamp(2, timestamp);
 		prepared.setInt(3, totalAbonar);
 		prepared.executeUpdate();
-
-		
-		int ID = 0;
 		
 		prepared = conexion.prepareStatement("SELECT MAX(Venta.Id_Venta) FROM Venta;");
-		ResultSet rsInterno = prepared.executeQuery();
+		
+		rsInterno = prepared.executeQuery();
 		
 		while (rsInterno.next()) {
 			ID = rsInterno.getInt(1);

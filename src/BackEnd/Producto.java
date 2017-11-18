@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import BackEndDAO.ProductoDAO;
+import Excepciones.FormatoInvalidoException;
+import Excepciones.RegistroYaExisteException;
 
 public class Producto {
 
@@ -41,7 +43,7 @@ public class Producto {
 
 	//Establecer exceptciones
 
-	public boolean registrar() {
+	public boolean registrar() throws RegistroYaExisteException, FormatoInvalidoException {
 		// TODO Auto-generated method stub
 		ProductoDAO dao = new ProductoDAO();
 		try {
@@ -50,8 +52,15 @@ public class Producto {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return false;
+		} catch (RegistroYaExisteException e1) {
+			e1.printStackTrace();
+			throw e1;
+		} catch (FormatoInvalidoException e2) {
+			e2.printStackTrace();
+			throw e2;
 		}
+		
+		return false;
 	}
 	
 	public boolean eliminar() {

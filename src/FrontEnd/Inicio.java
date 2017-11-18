@@ -68,7 +68,7 @@ public class Inicio extends JPanel{
 					JOptionPane.showMessageDialog(null, "ERROR Conexion rehusada");
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					
 				}
 				
 			}
@@ -93,14 +93,8 @@ public class Inicio extends JPanel{
 						codEmpleado.setText("");
 					}
 					
-				} catch (com.mysql.jdbc.exceptions.jdbc4.CommunicationsException e1) {
-					JOptionPane.showMessageDialog(null, "ERROR Conexion rehusada", "ERROR", ERROR, null);
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, "ERROR al conectar con la base de datos\nCompruebe los datos del archivo 'properties.json'");
-					e1.printStackTrace();
 				} catch (Exception e1) {
-					e1.printStackTrace();
+					
 				}
 				
 			}

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +18,8 @@ import javax.swing.SwingConstants;
 
 import BackEnd.Empleado;
 import BackEnd.Producto;
+import Excepciones.FormatoInvalidoException;
+import Excepciones.RegistroYaExisteException;
 
 public class VentanaModificarProducto extends JPanel {
 
@@ -78,14 +81,15 @@ public class VentanaModificarProducto extends JPanel {
 				
 				Producto nuevo = new Producto(producto.getCodProducto(), textFieldNombre.getText(),(Integer) spinnerPrecio.getValue());
 				if (nuevo.getCodProducto() != "Error") {
-					if (nuevo.registrar()) {
+					try {
+						nuevo.registrar();
 						marco.setContentPane(new PanelControl(marco,empleado));
 						marco.validate();
-					} else {
-						JOptionPane.showMessageDialog(null, "ERROR AL REGISTRAR");
-					}	
-				} else {
-					JOptionPane.showMessageDialog(null, "LOS DATOS NO SON VALIDOS");
+					} catch (FormatoInvalidoException e){
+						JOptionPane.showMessageDialog(null, e.getMessage());
+					} catch (RegistroYaExisteException e){
+						JOptionPane.showMessageDialog(null, e.getMessage());
+					}
 				}
 			}
 		});

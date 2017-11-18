@@ -11,6 +11,11 @@ import java.util.Date;
 import BackEnd.Empleado;
 
 import BackEndDAO.DAO;
+import Excepciones.FormatoInvalidoException;
+import Excepciones.RegistroYaExisteException;
+
+import com.mysql.jdbc.MysqlDataTruncation;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 public class EmpleadoDAO extends DAO{
 
@@ -76,16 +81,26 @@ public class EmpleadoDAO extends DAO{
 		close(conexion, prepared);
 	}
 
-	public void insertar(Empleado empleado) throws SQLException {
+	public void insertar(Empleado empleado) throws RegistroYaExisteException, FormatoInvalidoException {
 		long tiempo = empleado.getFechaDeIngreso().getTime();
 		java.sql.Timestamp timestamp = new Timestamp(tiempo);
-		conexion = conectar();
-		prepared = conexion.prepareStatement("INSERT INTO Empleado VALUES ( ? , ? , ?, ? )");
-		prepared.setString(1, empleado.getCodigo());
-		prepared.setString(2, empleado.getNombre());
-		prepared.setString(3, empleado.getApellido());
-        prepared.setTimestamp(4, timestamp);
-		prepared.executeUpdate();
+		try {
+			conexion = conectar();
+			prepared = conexion.prepareStatement("INSERT INTO Empleado VALUES ( ? , ? , ?, ? )");
+			prepared.setString(1, empleado.getCodigo());
+			prepared.setString(2, empleado.getNombre());
+			prepared.setString(3, empleado.getApellido());
+        	prepared.setTimestamp(4, timestamp);
+			prepared.executeUpdate();
+		} catch(MySQLIntegrityConstraintViolationException exception) {
+			exception.printStackTrace();
+			throw new RegistroYaExisteException("Ya existe un registro con la clave: "+empleado.getCodigo());
+		} catch(MysqlDataTruncation e) {
+			e.printStackTrace();
+			throw new FormatoInvalidoException("La clave:"+empleado.getCodigo()+" es muy larga");
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
 		close(conexion, prepared);
 	}
 }

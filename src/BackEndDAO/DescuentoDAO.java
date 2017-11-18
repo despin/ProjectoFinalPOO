@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import BackEndDAO.DAO;
+import Excepciones.ErrorConexion;
 
 public class DescuentoDAO extends DAO {
 
@@ -21,7 +22,11 @@ public class DescuentoDAO extends DAO {
 
 	public Descuento obtenerDescuentoDesdeNombre(String palabraClave) throws SQLException {
 		//obtener datos desde un query
-		Connection conexion = conectar();
+		try {
+			Connection conexion = conectar();
+		} catch (Exception e) {
+			
+		}
 		prepared = conexion.prepareStatement("Select * From Descuento where nombre = ? ");
 		prepared.setString(1, palabraClave);
 		
@@ -119,7 +124,7 @@ public class DescuentoDAO extends DAO {
 	}
 
 	public void insertar(Descuento descuento) throws SQLException {
-		conexion = conectar();
+			conexion = conectar();
 		prepared = conexion.prepareStatement("INSERT INTO Descuento VALUES ( default, ?, ?)");
 		prepared.setString(1, descuento.getPalabraClave());
 		prepared.setInt(2, descuento.getPorcentaje());

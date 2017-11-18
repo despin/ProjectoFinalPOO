@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import BackEndDAO.EmpleadoDAO;
+import Excepciones.FormatoInvalidoException;
+import Excepciones.RegistroYaExisteException;
 public class Empleado {
 
 	String codigoDeEmpleado;
@@ -61,16 +63,15 @@ public class Empleado {
 		
 	}
 
-	public boolean registrar() {
+	public void registrar() throws RegistroYaExisteException, FormatoInvalidoException {
 		// TODO Auto-generated method stub
 		EmpleadoDAO dao = new EmpleadoDAO();
 		try {
 			dao.insertar(this);
-			return true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
+		} catch (FormatoInvalidoException e) {
+			throw e;
+		} catch (RegistroYaExisteException e) {
+			throw e;
 		}
 	}
 
