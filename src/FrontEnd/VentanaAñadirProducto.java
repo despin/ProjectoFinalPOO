@@ -72,12 +72,13 @@ public class VentanaAñadirProducto extends JPanel {
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Producto nuevo = new Producto(textFieldCodigo.getText(), textFieldNombre.getText(),(Integer) spinnerPrecio.getValue());
-				if (nuevo.getCodProducto() != "Error") {
-					if (nuevo.registrar()) {
+				if (nuevo.getCodProducto() != "") {
+					try {
+						nuevo.registrar();
 						marco.setContentPane(new PanelControl(marco,empleado));
 						marco.validate();
-					} else {
-						JOptionPane.showMessageDialog(null, "ERROR AL REGISTRAR");
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(null, e.getMessage());
 					}	
 				} else {
 					JOptionPane.showMessageDialog(null, "LOS DATOS NO SON VALIDOS");

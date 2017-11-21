@@ -21,6 +21,8 @@ import javax.swing.SwingConstants;
 
 import BackEnd.Empleado;
 import BackEnd.Producto;
+import Excepciones.FormatoInvalidoException;
+import Excepciones.RegistroYaExisteException;
 
 public class VentanaAñadirEmpleado extends JPanel{
 	private JTextField textFieldCodigo;
@@ -96,12 +98,15 @@ public class VentanaAñadirEmpleado extends JPanel{
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Empleado nuevo = new Empleado(textFieldCodigo.getText(), textFieldNombre.getText(),textFieldApellido.getText(), ahora);
-				if (nuevo.registrar()) {
+				try {
+					nuevo.registrar();
 					marco.setContentPane(new PanelControl(marco,empleadoEnSesion));
 					marco.validate();
-				} else {
+				} catch(FormatoInvalidoException e){
 					JOptionPane.showMessageDialog(null, "ERROR AL REGISTRAR");
-				}	
+				} catch(RegistroYaExisteException e) {
+					
+				}
 			}
 		});
 		btnAgregar.setBounds(219, 161, 117, 25);
